@@ -5,12 +5,10 @@ import { eventWager } from './abi/abi';
 import { token } from './abi/abi';
 import Web3 from "web3";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import Home from './home';
 
-// const BigNumber = require('bignumber.js');
 const web3 = new Web3(Web3.givenProvider);
-const contractAddress = "0x3862F68dffed36f78fdDDB043680565ed6ACeEf2";
-const tokenAddress = "0x98bD449b806928733E3a0780d67D1a1c8A0c28Bb";
+const contractAddress = "0x73A6Da02A8876C3E01017fB960C912dA0a423817";
+const tokenAddress = "0x02F682030814F5AE7B1b3d69E8202d5870DF933f";
 const eventWagerContract = new web3.eth.Contract(eventWager, contractAddress);
 const tokenContract = new web3.eth.Contract(token, tokenAddress);
 
@@ -22,7 +20,7 @@ function App() {
   const [potAgainst, setPotAgainst] = useState(0);
   const [retrievedUserSide, setRetrievedUserSide] = useState(0);
   const [retrievedSide1, setRetrievedSide1] = useState("1");
-  const [retrievedSide2, setRetrievedSide2] = useState("1");
+  const [retrievedSide2, setRetrievedSide2] = useState("2");
   const [requestAddress, setRequestAddress] = useState(0);
   const [requestAmount, setRequestAmount] = useState(0);
 
@@ -90,97 +88,183 @@ function App() {
   const getPotFor = async (t) => {
     t.preventDefault();
     const post = await eventWagerContract.methods.getPotFor().call();
-    setPotFor(post);
+    setPotFor(web3.utils.fromWei(post));
   };
 
   const renderPotFor = async (t) => {
     const post = await eventWagerContract.methods.getPotFor().call();
-    setPotFor(post);
+    setPotFor(web3.utils.fromWei(post));
   };
 
   const getPotAgainst = async (t) => {
     t.preventDefault();
     const post = await eventWagerContract.methods.getPotAgainst().call();
-    setPotAgainst(post);
+    setPotAgainst(web3.utils.fromWei(post));
   };
 
   const renderPotAgainst = async (t) => {
     const post = await eventWagerContract.methods.getPotAgainst().call();
-    setPotAgainst(post);
+    setPotAgainst(web3.utils.fromWei(post));
   };
   
 
   // Setter methods
   const wager = async (t) => {
     t.preventDefault();
-    const accounts = await window.ethereum.enable();
-    const account = accounts[0];
-    const _wager = web3.utils.toWei(newWager);
+    try{
+      const accounts = await window.ethereum.enable();
+      const account = accounts[0];
+      const _wager = web3.utils.toWei(newWager);
 
-    const gas = await eventWagerContract.methods.wager(userSide, _wager).estimateGas();
-    const post = await eventWagerContract.methods.wager(userSide, _wager).send({ from: account, gas });
-    getUserWager(t);
-    getCurrentPot(t);
+      const gas = await eventWagerContract.methods.wager(userSide, _wager).estimateGas();
+      const post = await eventWagerContract.methods.wager(userSide, _wager).send({ from: account, gas });
+      getUserWager(t);
+      getCurrentPot(t);
+    }
+    catch(e)
+    {
+      alert('Apparently this is the best way to display blockchain errors :/\n\n' + e.message);
+    }
     var form = document.getElementById("submitWagerForm");
     form.reset();
   };
 
   const endRound = async (t) => {
     t.preventDefault();
-    const accounts = await window.ethereum.enable();
-    const account = accounts[0];
-    const gas = await eventWagerContract.methods.endRound(winningSide).estimateGas();
-    const post = await eventWagerContract.methods.endRound(winningSide).send({ from: account, gas });
+    try{
+      const accounts = await window.ethereum.enable();
+      const account = accounts[0];
+      const gas = await eventWagerContract.methods.endRound(winningSide).estimateGas();
+      const post = await eventWagerContract.methods.endRound(winningSide).send({ from: account, gas });
+    }
+    catch(e)
+    {
+      alert('Apparently this is the best way to display blockchain errors :/\n\n' + e.message);
+    }
     var form = document.getElementById("endRoundForm");
     form.reset();
   };
 
   const beginRound = async (t) => {
     t.preventDefault();
-    const accounts = await window.ethereum.enable();
-    const account = accounts[0];
-    const gas = await eventWagerContract.methods.beginRound(retrievedSide1, retrievedSide2).estimateGas();
-    const post = await eventWagerContract.methods.beginRound(retrievedSide1, retrievedSide2).send({ from: account, gas });
+    setRetrievedSide1(document.getElementById("side1").value);
+    setRetrievedSide2(document.getElementById("side2").value);
+    try{
+      const accounts = await window.ethereum.enable();
+      const account = accounts[0];
+      const gas = await eventWagerContract.methods.beginRound(retrievedSide1, retrievedSide2).estimateGas();
+      const post = await eventWagerContract.methods.beginRound(retrievedSide1, retrievedSide2).send({ from: account, gas });
+    }
+    catch(e)
+    {
+      alert('Apparently this is the best way to display blockchain errors :/\n\n' + e.message);
+    }
     var form = document.getElementById("beginRoundForm");
     form.reset();
   };
 
   const closeBetting = async (t) => {
     t.preventDefault();
-    const accounts = await window.ethereum.enable();
-    const account = accounts[0];
-    const gas = await eventWagerContract.methods.closeBetting().estimateGas();
-    const post = await eventWagerContract.methods.closeBetting().send({from: account, gas });
-    
+    try{
+      const accounts = await window.ethereum.enable();
+      const account = accounts[0];
+      const gas = await eventWagerContract.methods.closeBetting().estimateGas();
+      const post = await eventWagerContract.methods.closeBetting().send({from: account, gas });
+    }
+    catch(e)
+    {
+      // let i = e.message.indexOf('{');
+      // console.log(e.message.substring(i));
+      // let err = JSON.parse(e.message.substring(i).trim()).message;
+      alert('Apparently this is the best way to display blockchain errors :/\n\n' + e.message);
+    }
   };
 
   const allowSpend = async (t) => {
     t.preventDefault();
-    const accounts = await window.ethereum.enable();
-    const account = accounts[0];
-    // (2**256)-1)
-    // let amnt = new BigNumber(999 * (10**18));
-    // let _amnt = await amnt.toString();
-    // console.log(_amnt);
-    const gas = tokenContract.methods.approve(contractAddress, web3.utils.toWei('9999')).estimateGas();
-    const post = tokenContract.methods.approve(contractAddress, web3.utils.toWei('9999')).send({ from: account });
+    try{
+      const accounts = await window.ethereum.enable();
+      const account = accounts[0];
+      // (2**256)-1)
+      // let amnt = new BigNumber(999 * (10**18));
+      // let _amnt = await amnt.toString();
+      // console.log(_amnt);
+      const gas = tokenContract.methods.approve(contractAddress, web3.utils.toWei('9999')).estimateGas();
+      const post = tokenContract.methods.approve(contractAddress, web3.utils.toWei('9999')).send({ from: account });
+    }
+    catch(e)
+    {
+      alert('Apparently this is the best way to display blockchain errors :/\n\n' + e.message);
+    }
   };
 
   const requestTokens = async (t) => {
     t.preventDefault();
-    const accounts = await window.ethereum.enable();
-    const account = accounts[0];
-    const gas = eventWagerContract.methods.requestTokens(requestAddress, web3.utils.toWei(requestAmount)).estimateGas();
-    const post = eventWagerContract.methods.requestTokens(requestAddress, web3.utils.toWei(requestAmount)).send({ from: account });
+    try {
+      const accounts = await window.ethereum.enable();
+      const account = accounts[0];
+      const gas = eventWagerContract.methods.requestTokens(requestAddress, web3.utils.toWei(requestAmount)).estimateGas();
+      const post = eventWagerContract.methods.requestTokens(requestAddress, web3.utils.toWei(requestAmount)).send({ from: account });
+    }
+    catch(error) {
+      console.log(error);
+      console.log('Error Caught!');
+      alert(error);
+    }
+    
     var form = document.getElementById("requestTokensForm");
     form.reset();
   };
+  
 
+  // Helper methods
+  const networkCheck = async () => { // Check if metamask is connected to Ropsten or Ganache
+    var appNetwork = await web3.eth.net.getNetworkType();
+    let netId = await web3.eth.net.getId();
+    if(appNetwork !== 'ropsten' && netId !== 1627753267457) {
+      alert('Please ensure that your wallet is connected to the Ropsten test network');
+    }
+    console.log(appNetwork);
+    console.log(netId);
+  };
+
+  const renderValues = async () => {
+    renderSides();
+    renderPotFor();
+    renderPotAgainst();
+    renderCurrentPot();
+    renderUserWager();
+  };
+
+  // Call render functions on page load
   renderSides();
   renderPotFor();
   renderPotAgainst();
   renderCurrentPot();
   renderUserWager();
+  networkCheck();
+
+  // Listener methods
+  eventWagerContract.events.Wager().on('data', (event) => {
+    renderValues();
+  }).on('error', console.error);
+
+  eventWagerContract.events.RoundStart().on('data', (event) => {
+    renderValues();
+  }).on('error', console.error);
+
+  eventWagerContract.events.BettingClosed().on('data', (event) => {
+    renderValues(); // TODO this should do something more. The user should be able to tell the state
+  }).on('error', console.error);
+
+  eventWagerContract.events.RoundEnd().on('data', (event) => {
+    renderValues();
+  }).on('error', console.error);
+
+  eventWagerContract.events.PassOwnership().on('data', (event) => {
+    renderValues(); // TODO This should do something entireley different
+  }).on('error', console.error);
+
 
   const Home = () => {
     return(
@@ -189,14 +273,14 @@ function App() {
       1: {retrievedSide1} : {potFor} WC<br/> 2: {retrievedSide2} : {potAgainst} WC
       </div>
       <div className="card">
-        <form className="form" id="submitWagerForm" onSubmit={wager}>
+        <form className="form" id="submitWagerForm" autocomplete="off" onSubmit={wager}>
           <label>
             Enter your wager and side:
             <br />
             <input
               className="input"
               type="text"
-              name="name"
+              name="amount"
               placeholder="# of WC"
               onChange={(t) => setWager(t.target.value)}
             />
@@ -253,14 +337,14 @@ function App() {
         1: {retrievedSide1} : {potFor} WC<br/> 2: {retrievedSide2} : {potAgainst} WC
       </div>
       <div className="card">
-        <form className="form" id="submitWagerForm" onSubmit={wager}>
+        <form className="form" id="submitWagerForm" autocomplete="off" onSubmit={wager}>
           <label>
             Enter your wager and side:
             <br />
             <input
               className="input"
               type="text"
-              name="name"
+              name="amount"
               placeholder="# of WC"
               onChange={(t) => setWager(t.target.value)}
             />
@@ -297,12 +381,13 @@ function App() {
           </button>
         </div>
         <div className="lower">
-          <form className="form" id="beginRoundForm" onSubmit={beginRound}>
+          <form className="form" id="beginRoundForm" autocomplete="off" onSubmit={beginRound}>
             <label>
               <input
                 className="input"
                 type="text"
                 name="name"
+                id="side1"
                 placeholder="Side 1"
                 onChange={(t) => setRetrievedSide1(t.target.value)}
               />
@@ -311,6 +396,7 @@ function App() {
                 type="text"
                 name="side"
                 placeholder="Side 2"
+                id="side2"
                 onChange={(t) => setRetrievedSide2(t.target.value)}
               />
               <button className="button" type="submit" value="Submit">
@@ -318,7 +404,7 @@ function App() {
               </button>
             </label>
           </form>
-          <form className="form" id="endRoundForm" onSubmit={endRound}>
+          <form className="form" id="endRoundForm" autocomplete="off" onSubmit={endRound}>
           <label>
             <input
                 className="input"
@@ -332,7 +418,7 @@ function App() {
               </button>
             </label>
           </form>
-          <form className="form" id="requestTokensForm" onSubmit={requestTokens}>
+          <form className="form" id="requestTokensForm" autocomplete="off" onSubmit={requestTokens}>
             <label>
               <input
                 className="input"

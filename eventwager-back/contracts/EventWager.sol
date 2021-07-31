@@ -33,8 +33,10 @@ contract EventWager
     event Wager(address indexed user, uint256 amount);
     event Withdraw(address indexed user, uint256 amount);
     event RoundStart();
+    event BettingClosed();
     event RoundEnd(uint256 winningSide, uint256 amount);
     event TokensRequested(address indexed user, uint256 amount);
+    event PassOwnership(address indexed user);
     
     mapping(address => UserInfo) private userInfo;
     UserInfo[] public usersFor;
@@ -46,7 +48,7 @@ contract EventWager
         owner = msg.sender;
         token = _token;
         state = States.BettingClosed;
-        sides = 'Side 1||&&||Side 2';
+        sides = 'null||&&||null';
     }
     modifier onlyOwner(){
         require(msg.sender == owner, "This function is owner-only.");
@@ -64,6 +66,7 @@ contract EventWager
         state = States.BettingOpen;
         
         sides = string(abi.encodePacked(side1, "||&&||", side2));
+        emit RoundStart();
     }
 
     function getPot() public view returns (uint256) {
@@ -185,11 +188,6 @@ contract EventWager
         state = States.BettingClosed;
     }
 
-    // Debug functions
-    // TODO Clearly, it doesn't send the right amount of tokens back
-    // Try using a require to ensure that user.currentWager >0 in endRound ? But what does that do for me when it fails?
-    // Check whether other state changes in the loop work. The arrays seem to, but those aren't properties of a user
-
     function isDeposited(address _address) public view returns (bool) {
         UserInfo storage user = userInfo[_address];
         return user.isDeposited;
@@ -214,6 +212,7 @@ contract EventWager
 
     function passOwnership(address _address) public onlyOwner {
         owner = _address;
+        emit PassOwnership(_address);
     }
 
     function getFor() public view returns (uint256){     
@@ -227,4 +226,3 @@ contract EventWager
         return state;
     }
 }
-
