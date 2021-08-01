@@ -31,15 +31,7 @@ function App() {
 
   // Getter methods
   const getUserWager = async (t) => {
-    t.preventDefault();
-    const accounts = await window.ethereum.enable();
-    const account = accounts[0];
-    const post = await eventWagerContract.methods.getWager(account).call();
-    const _wager = web3.utils.fromWei(post);
-    setRetrievedWager(_wager);
-  };
-
-  const renderUserWager = async () => {
+    if(t) { t.preventDefault(); }
     const accounts = await window.ethereum.enable();
     const account = accounts[0];
     const post = await eventWagerContract.methods.getWager(account).call();
@@ -48,20 +40,14 @@ function App() {
   };
 
   const getCurrentPot = async (t) => {
-    t.preventDefault();
-    const post = await eventWagerContract.methods.getPot().call();
-    const _pot = web3.utils.fromWei(post);
-    setRetrievedCurrentPot(_pot);
-  };
-
-  const renderCurrentPot = async () => {
+    if(t) { t.preventDefault(); }
     const post = await eventWagerContract.methods.getPot().call();
     const _pot = web3.utils.fromWei(post);
     setRetrievedCurrentPot(_pot);
   };
 
   const getCurrentSides = async (t) => {
-    t.preventDefault();
+    if(t) { t.preventDefault(); }
     const post = await eventWagerContract.methods.getSides().call();
     // const post = await eventWagerContract.methods.getPot().call();
     var substrings = post.split('||&&||');
@@ -70,15 +56,8 @@ function App() {
     // return false;
   };
 
-  const renderSides = async () => { // Same as getCurrentSides, except it takes no context argument
-    const post = await eventWagerContract.methods.getSides().call();
-    var substrings = post.split('||&&||');
-    setRetrievedSide1(substrings[0]);
-    setRetrievedSide2(substrings[1]);
-  };
-
   const getUserSide = async (t) => {
-    t.preventDefault();
+    if(t) { t.preventDefault(); }
     const accounts = await window.ethereum.enable();
     const account = accounts[0];
     const post = await eventWagerContract.methods.getUserSide(account).call();
@@ -86,31 +65,20 @@ function App() {
   };
 
   const getPotFor = async (t) => {
-    t.preventDefault();
-    const post = await eventWagerContract.methods.getPotFor().call();
-    setPotFor(web3.utils.fromWei(post));
-  };
-
-  const renderPotFor = async (t) => {
+    if(t) { t.preventDefault(); }
     const post = await eventWagerContract.methods.getPotFor().call();
     setPotFor(web3.utils.fromWei(post));
   };
 
   const getPotAgainst = async (t) => {
-    t.preventDefault();
-    const post = await eventWagerContract.methods.getPotAgainst().call();
-    setPotAgainst(web3.utils.fromWei(post));
-  };
-
-  const renderPotAgainst = async (t) => {
+    if(t) { t.preventDefault(); }
     const post = await eventWagerContract.methods.getPotAgainst().call();
     setPotAgainst(web3.utils.fromWei(post));
   };
   
-
   // Setter methods
   const wager = async (t) => {
-    t.preventDefault();
+    t.preventDefault(); 
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
@@ -130,7 +98,7 @@ function App() {
   };
 
   const endRound = async (t) => {
-    t.preventDefault();
+    if(t) { t.preventDefault(); }
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
@@ -164,7 +132,7 @@ function App() {
   };
 
   const closeBetting = async (t) => {
-    t.preventDefault();
+    t.preventDefault(); 
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
@@ -185,10 +153,6 @@ function App() {
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
-      // (2**256)-1)
-      // let amnt = new BigNumber(999 * (10**18));
-      // let _amnt = await amnt.toString();
-      // console.log(_amnt);
       const gas = tokenContract.methods.approve(contractAddress, web3.utils.toWei('9999')).estimateGas();
       const post = tokenContract.methods.approve(contractAddress, web3.utils.toWei('9999')).send({ from: account });
     }
@@ -215,7 +179,6 @@ function App() {
     var form = document.getElementById("requestTokensForm");
     form.reset();
   };
-  
 
   // Helper methods
   const networkCheck = async () => { // Check if metamask is connected to Ropsten or Ganache
@@ -229,20 +192,16 @@ function App() {
   };
 
   const renderValues = async () => {
-    renderSides();
-    renderPotFor();
-    renderPotAgainst();
-    renderCurrentPot();
-    renderUserWager();
+    getCurrentSides();
+    getPotFor();
+    getPotAgainst();
+    getCurrentPot();
+    getUserWager();
   };
 
-  // Call render functions on page load
-  renderSides();
-  renderPotFor();
-  renderPotAgainst();
-  renderCurrentPot();
-  renderUserWager();
-  networkCheck();
+  // Load values from blockchain on page load
+  // networkCheck(); TODO re-enable this
+  renderValues();
 
   // Listener methods
   eventWagerContract.events.Wager().on('data', (event) => {
