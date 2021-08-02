@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import './App.css';
 import { eventWager } from './abi/abi';
 import { token } from './abi/abi';
@@ -7,22 +7,30 @@ import Web3 from "web3";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const web3 = new Web3(Web3.givenProvider);
-const contractAddress = "0x73A6Da02A8876C3E01017fB960C912dA0a423817";
-const tokenAddress = "0x02F682030814F5AE7B1b3d69E8202d5870DF933f";
+// const contractAddress = "0x73A6Da02A8876C3E01017fB960C912dA0a423817"; // Ganache
+// const tokenAddress = "0x02F682030814F5AE7B1b3d69E8202d5870DF933f"; // Ganache
+const contractAddress = "0x5c3bFAC352Ef17a0a76F06E9DfF7683749ac4991"; // Ropsten
+const tokenAddress = "0x5086cbf1C96bD909b913a66E4a32c855BA74D498"; // Ropsten
 const eventWagerContract = new web3.eth.Contract(eventWager, contractAddress);
 const tokenContract = new web3.eth.Contract(token, tokenAddress);
 
 function App() {
+  // Input Refs
+  const side1ref = useRef(null);
+  const side2ref = useRef(null);
+
   // Getter hooks
   const [retrievedWager, setRetrievedWager] = useState(0);
   const [currentPot, setRetrievedCurrentPot] = useState(0);
   const [potFor, setPotFor] = useState(0);
   const [potAgainst, setPotAgainst] = useState(0);
   const [retrievedUserSide, setRetrievedUserSide] = useState(0);
-  const [retrievedSide1, setRetrievedSide1] = useState("1");
-  const [retrievedSide2, setRetrievedSide2] = useState("2");
+  const [retrievedSide1, setRetrievedSide1] = useState("");
+  const [retrievedSide2, setRetrievedSide2] = useState("");
   const [requestAddress, setRequestAddress] = useState(0);
   const [requestAmount, setRequestAmount] = useState(0);
+  const [owner, setOwner] = useState("");
+  const [state, setState] = useState(0);
 
   // Setter hooks
   const [newWager, setWager] = useState(0);
@@ -38,6 +46,18 @@ function App() {
     const _wager = web3.utils.fromWei(post);
     setRetrievedWager(_wager);
   };
+
+  const getState = async (t) => {
+    if(t) { t.preventDefault(); }
+    const post = await eventWagerContract.methods.getState().call();
+    setState(post);
+  }
+
+  const getOwner = async (t) => {
+    if(t) { t.preventDefault(); }
+    const post = await eventWagerContract.methods.getOwner().call();
+    setOwner(post);
+  }
 
   const getCurrentPot = async (t) => {
     if(t) { t.preventDefault(); }
@@ -115,13 +135,15 @@ function App() {
 
   const beginRound = async (t) => {
     t.preventDefault();
-    setRetrievedSide1(document.getElementById("side1").value);
-    setRetrievedSide2(document.getElementById("side2").value);
+    setRetrievedSide1(side1ref.current.value);
+    setRetrievedSide2(side2ref.current.value);
+    var _side1 = side1ref.current.value;
+    var _side2 = side2ref.current.value;
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
-      const gas = await eventWagerContract.methods.beginRound(retrievedSide1, retrievedSide2).estimateGas();
-      const post = await eventWagerContract.methods.beginRound(retrievedSide1, retrievedSide2).send({ from: account, gas });
+      const gas = await eventWagerContract.methods.beginRound(_side1, _side2).estimateGas();
+      const post = await eventWagerContract.methods.beginRound(_side1, _side2).send({ from: account, gas });
     }
     catch(e)
     {
@@ -192,11 +214,13 @@ function App() {
   };
 
   const renderValues = async () => {
+    getState();
     getCurrentSides();
     getPotFor();
     getPotAgainst();
     getCurrentPot();
     getUserWager();
+    getOwner();
   };
 
   // Load values from blockchain on page load
@@ -228,10 +252,15 @@ function App() {
   const Home = () => {
     return(
       <div className="main">
-      <div className="upper">
-      1: {retrievedSide1} : {potFor} WC<br/> 2: {retrievedSide2} : {potAgainst} WC
-      </div>
-      <div className="card">
+        <div className="card">
+          <div className="upper">
+            <div className="upperElement">
+              1: {retrievedSide1} : {potFor} WC<br/> 2: {retrievedSide2} : {potAgainst} WC
+            </div>
+          <div className="upperElement">
+            State: {state}
+          </div>
+        </div>
         <form className="form" id="submitWagerForm" autocomplete="off" onSubmit={wager}>
           <label>
             Enter your wager and side:
@@ -292,10 +321,17 @@ function App() {
   const Admin = () => {
     return(
       <div className="main">
-      <div className="upper">
-        1: {retrievedSide1} : {potFor} WC<br/> 2: {retrievedSide2} : {potAgainst} WC
-      </div>
-      <div className="card">
+        <div className="card">
+          <div className="upper">
+            <div className="upperElement">
+              1: {retrievedSide1} : {potFor} WC<br/> 2: {retrievedSide2} : {potAgainst} WC
+            </div>
+          <div className="upperElement">
+            State: {state}
+            <br/>
+            Owner: {owner}
+          </div>
+        </div>
         <form className="form" id="submitWagerForm" autocomplete="off" onSubmit={wager}>
           <label>
             Enter your wager and side:
@@ -305,12 +341,14 @@ function App() {
               type="text"
               name="amount"
               placeholder="# of WC"
+              // value={newWager}
               onChange={(t) => setWager(t.target.value)}
             />
             <input
               className="input"
               type="text"
               name="side"
+              // value={userSide}
               placeholder="1 or 2"
               onChange={(t) => setUserSide(t.target.value)}
             />
@@ -344,19 +382,23 @@ function App() {
             <label>
               <input
                 className="input"
+                ref={side1ref}
                 type="text"
                 name="name"
+                // value={retrievedSide1}
                 id="side1"
                 placeholder="Side 1"
-                onChange={(t) => setRetrievedSide1(t.target.value)}
+                // onChange={(t) => setRetrievedSide1(t.target.value)}
               />
               <input
                 className="input"
+                ref={side2ref}
                 type="text"
                 name="side"
                 placeholder="Side 2"
+                // value={retrievedSide2}
                 id="side2"
-                onChange={(t) => setRetrievedSide2(t.target.value)}
+                // onChange={(t) => setRetrievedSide2(t.target.value)}
               />
               <button className="button" type="submit" value="Submit">
                 Begin Round
@@ -369,6 +411,7 @@ function App() {
                 className="input"
                 type="text"
                 name="side"
+                value={winningSide}
                 placeholder="Winning Side"
                 onChange={(t) => setWinningSide(t.target.value)}
               />

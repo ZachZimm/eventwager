@@ -8,7 +8,7 @@ contract EventWager
 {
     using SafeMath for uint256;
     enum States {
-        BettingClosed, BettingOpen, CalculatingWinnings
+        BettingClosed, BettingOpen
     }
 
     States public state;

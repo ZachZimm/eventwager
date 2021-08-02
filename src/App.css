@@ -27,10 +27,13 @@
   margin-right: 3em;
  }
 .upper {
-  height: 10vh;
-  justify-content: left;
-  align-items:center;
+  /* height: 10vh; */
+  justify-content: center;
+  align-items: center;
   display: flex;
+}
+.upperElement{
+  margin-right: 10em;
 }
 .lower{
   text-align: center;
