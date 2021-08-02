@@ -118,7 +118,7 @@ function App() {
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
       console.log('amount : ' + _amount + ' side : ' + _side);
-      const gas = await eventWagerContract.methods.wager(_side, web3.utils.toWei(_amount)).estimateGas();
+      const gas = await eventWagerContract.methods.wager(_side, web3.utils.toWei(_amount)).estimateGas({ from: account});
       console.log(1);
       const post = await eventWagerContract.methods.wager(_side, web3.utils.toWei(_amount)).send({ from: account, gas });
       console.log(2);
