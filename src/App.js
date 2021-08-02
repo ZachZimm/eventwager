@@ -9,8 +9,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 const web3 = new Web3(Web3.givenProvider);
 // const contractAddress = "0x73A6Da02A8876C3E01017fB960C912dA0a423817"; // Ganache
 // const tokenAddress = "0x02F682030814F5AE7B1b3d69E8202d5870DF933f"; // Ganache
-const contractAddress = "0x393f2743D9cdd345709a6c1C703407dB7ad8dD39"; // Ropsten
-const tokenAddress = "0x4Dcf7854712B9070C0988D9029C824D4fa3bAe86"; // Ropsten
+const contractAddress = "0x011A4e19CE1dC370068869412cd6964f7787B2a7"; // Ropsten
+const tokenAddress = "0x9D14FAaAA23EE94245e256fA834764B6999F42D5"; // Ropsten
 const eventWagerContract = new web3.eth.Contract(eventWager, contractAddress);
 const tokenContract = new web3.eth.Contract(token, tokenAddress);
 

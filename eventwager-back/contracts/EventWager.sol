@@ -2,14 +2,17 @@ pragma solidity ^0.8.0;
 // pragma experimental ABIEncoderV2;
 import "./Token.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "@openzeppelin/contracts/access/AccessControl.sol";
 // import "./LinkedList.sol"
 
-contract EventWager
+contract EventWager is AccessControl
 {
     using SafeMath for uint256;
     enum States {
         BettingClosed, BettingOpen
     }
+
+    bytes32 public constant OWNER_ROLE = keccak256("OWNER_ROLE");
 
     States public state;
     Token private token;
@@ -49,9 +52,10 @@ contract EventWager
         token = _token;
         state = States.BettingClosed;
         sides = 'null||&&||null';
+        _setupRole(OWNER_ROLE, owner);
     }
     modifier onlyOwner(){
-        require(msg.sender == owner, "This function is owner-only.");
+        require(hasRole(OWNER_ROLE, msg.sender), "This function is owner-only.");
         _;
     }
     modifier onlyState(States expected) {
