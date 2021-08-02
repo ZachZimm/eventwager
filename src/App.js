@@ -9,10 +9,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 const web3 = new Web3(Web3.givenProvider);
 // const contractAddress = "0x73A6Da02A8876C3E01017fB960C912dA0a423817"; // Ganache
 // const tokenAddress = "0x02F682030814F5AE7B1b3d69E8202d5870DF933f"; // Ganache
-const contractAddress = "0x011A4e19CE1dC370068869412cd6964f7787B2a7"; // Ropsten
-const tokenAddress = "0x9D14FAaAA23EE94245e256fA834764B6999F42D5"; // Ropsten
-const eventWagerContract = new web3.eth.Contract(eventWager, contractAddress);
-const tokenContract = new web3.eth.Contract(token, tokenAddress);
+// const contractAddress = "0x011A4e19CE1dC370068869412cd6964f7787B2a7"; // Ropsten
+// const tokenAddress = "0x9D14FAaAA23EE94245e256fA834764B6999F42D5"; // Ropsten
+
 
 function App() {
   // Input Refs
@@ -23,6 +22,8 @@ function App() {
   const winningSideRef = useRef(null);
   const requestAddressRef = useRef(null);
   const requestAmountRef = useRef(null);
+  const changeTokenRef = useState(null)
+  const changeContractRef = useState(null)
 
   // Getter hooks
   const [retrievedWager, setRetrievedWager] = useState(0);
@@ -36,6 +37,11 @@ function App() {
   const [requestAmount, setRequestAmount] = useState(0);
   const [owner, setOwner] = useState("");
   const [state, setState] = useState(0);
+  const [tokenAddress, setTokenAddress] = useState("0x9D14FAaAA23EE94245e256fA834764B6999F42D5");
+  const [contractAddress, setContractAddress] = useState("0x011A4e19CE1dC370068869412cd6964f7787B2a7");
+
+  const eventWagerContract = new web3.eth.Contract(eventWager, contractAddress);
+  const tokenContract = new web3.eth.Contract(token, tokenAddress);
 
   // Setter hooks
   const [newWager, setWager] = useState(0);
@@ -186,8 +192,10 @@ function App() {
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
-      const gas = tokenContract.methods.approve(contractAddress, web3.utils.toWei('9999')).estimateGas();
-      const post = tokenContract.methods.approve(contractAddress, web3.utils.toWei('9999')).send({ from: account });
+      console.log('account : ' + account);
+      const gas = tokenContract.methods.approve(contractAddress, web3.utils.toWei('999999')).estimateGas({ from: account });
+      const post = tokenContract.methods.approve(contractAddress, web3.utils.toWei('999999')).send({ from: account });
+      console.log('account_ : ' + account);
     }
     catch(e)
     {
@@ -224,6 +232,22 @@ function App() {
     }
     console.log(appNetwork);
     console.log(netId);
+  };
+
+  const changeAddress = async (t) => {
+    t.preventDefault();
+    var _contract = changeContractRef.current.value;
+    var _token = changeTokenRef.current.value;
+
+    try{ 
+      if(_contract.charAt(1) == 'x') {
+        setContractAddress(_contract);
+    }
+    if(_token.charAt(1) == 'x') 
+        setTokenAddress(_token);
+    }
+    catch(e){ alert(e); }
+
   };
 
   const renderValues = async () => {
@@ -481,6 +505,40 @@ function App() {
     );
   }
 
+  const ChangeAddress = () => {
+    return(
+      <div className="main">
+        <div className="card">
+          <div>
+            <form className="form" id="changeAddressForm" autocomplete="off" onSubmit={changeAddress}>
+              <label>
+                <div>Token: {tokenAddress}</div><div>Contract: {contractAddress}</div>
+                <br />
+                <input
+                  ref={changeTokenRef}
+                  className="input"
+                  type="text"
+                  name="changeToken"
+                  placeholder="Token 0x address"
+                />
+                <input
+                  ref={changeContractRef}
+                  className="input"
+                  type="text"
+                  name="changeContract"
+                  placeholder="Contract 0x address"
+                />
+              </label>
+              <button className="button" type="submit" value="Submit">
+                Change Addresses
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <Router>
       <Switch>
@@ -489,6 +547,9 @@ function App() {
         </Route>
         <Route exact path="/admin">
           <Admin />
+        </Route>
+        <Route exact path="/changeaddress">
+          <ChangeAddress />
         </Route>
       </Switch>
     </Router>
