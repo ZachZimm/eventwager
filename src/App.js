@@ -9,8 +9,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 const web3 = new Web3(Web3.givenProvider);
 // const contractAddress = "0x73A6Da02A8876C3E01017fB960C912dA0a423817"; // Ganache
 // const tokenAddress = "0x02F682030814F5AE7B1b3d69E8202d5870DF933f"; // Ganache
-const contractAddress = "0x5c3bFAC352Ef17a0a76F06E9DfF7683749ac4991"; // Ropsten
-const tokenAddress = "0x5086cbf1C96bD909b913a66E4a32c855BA74D498"; // Ropsten
+const contractAddress = "0x393f2743D9cdd345709a6c1C703407dB7ad8dD39"; // Ropsten
+const tokenAddress = "0x4Dcf7854712B9070C0988D9029C824D4fa3bAe86"; // Ropsten
 const eventWagerContract = new web3.eth.Contract(eventWager, contractAddress);
 const tokenContract = new web3.eth.Contract(token, tokenAddress);
 
@@ -18,6 +18,11 @@ function App() {
   // Input Refs
   const side1ref = useRef(null);
   const side2ref = useRef(null);
+  const amountRef = useRef(null);
+  const sideRef = useRef(null);
+  const winningSideRef = useRef(null);
+  const requestAddressRef = useRef(null);
+  const requestAmountRef = useRef(null);
 
   // Getter hooks
   const [retrievedWager, setRetrievedWager] = useState(0);
@@ -99,13 +104,18 @@ function App() {
   // Setter methods
   const wager = async (t) => {
     t.preventDefault(); 
+    var _amount = amountRef.current.value;
+    var _side  = sideRef.current.value;
+    console.log('amountRef : ' + amountRef.current.value);
+    console.log('sideRef : ' + sideRef.current.value);
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
-      const _wager = web3.utils.toWei(newWager);
-
-      const gas = await eventWagerContract.methods.wager(userSide, _wager).estimateGas();
-      const post = await eventWagerContract.methods.wager(userSide, _wager).send({ from: account, gas });
+      console.log('amount : ' + _amount + ' side : ' + _side);
+      const gas = await eventWagerContract.methods.wager(_side, web3.utils.toWei(_amount)).estimateGas();
+      console.log(1);
+      const post = await eventWagerContract.methods.wager(_side, web3.utils.toWei(_amount)).send({ from: account, gas });
+      console.log(2);
       getUserWager(t);
       getCurrentPot(t);
     }
@@ -119,11 +129,12 @@ function App() {
 
   const endRound = async (t) => {
     if(t) { t.preventDefault(); }
+    var _winningSide = winningSideRef.current.value;
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
-      const gas = await eventWagerContract.methods.endRound(winningSide).estimateGas();
-      const post = await eventWagerContract.methods.endRound(winningSide).send({ from: account, gas });
+      const gas = await eventWagerContract.methods.endRound(_winningSide).estimateGas();
+      const post = await eventWagerContract.methods.endRound(_winningSide).send({ from: account, gas });
     }
     catch(e)
     {
@@ -186,11 +197,13 @@ function App() {
 
   const requestTokens = async (t) => {
     t.preventDefault();
+    var _requestAddress = requestAddressRef.current.value;
+    var _requestAmount = requestAmountRef.current.value;
     try {
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
-      const gas = eventWagerContract.methods.requestTokens(requestAddress, web3.utils.toWei(requestAmount)).estimateGas();
-      const post = eventWagerContract.methods.requestTokens(requestAddress, web3.utils.toWei(requestAmount)).send({ from: account });
+      const gas = eventWagerContract.methods.requestTokens(_requestAddress, web3.utils.toWei(_requestAmount)).estimateGas();
+      const post = eventWagerContract.methods.requestTokens(_requestAddress, web3.utils.toWei(_requestAmount)).send({ from: account });
     }
     catch(error) {
       console.log(error);
@@ -337,20 +350,22 @@ function App() {
             Enter your wager and side:
             <br />
             <input
+              ref={amountRef}
               className="input"
               type="text"
               name="amount"
               placeholder="# of WC"
               // value={newWager}
-              onChange={(t) => setWager(t.target.value)}
+              // onChange={(t) => setWager(t.target.value)}
             />
             <input
               className="input"
+              ref={sideRef}
               type="text"
               name="side"
-              // value={userSide}
               placeholder="1 or 2"
-              onChange={(t) => setUserSide(t.target.value)}
+              // value={userSide}
+              // onChange={(t) => setUserSide(t.target.value)}
             />
           </label>
           <button className="button" type="submit" value="Submit">
@@ -408,12 +423,13 @@ function App() {
           <form className="form" id="endRoundForm" autocomplete="off" onSubmit={endRound}>
           <label>
             <input
+                ref={winningSideRef}
                 className="input"
                 type="text"
                 name="side"
-                value={winningSide}
                 placeholder="Winning Side"
-                onChange={(t) => setWinningSide(t.target.value)}
+                // value={winningSide}
+                // onChange={(t) => setWinningSide(t.target.value)}
               />
               <button className="button" type="submit" value="Submit">
                 End Round
@@ -423,18 +439,20 @@ function App() {
           <form className="form" id="requestTokensForm" autocomplete="off" onSubmit={requestTokens}>
             <label>
               <input
+                ref={requestAddressRef}
                 className="input"
                 type="text"
                 name="name"
                 placeholder="0x address"
-                onChange={(t) => setRequestAddress(t.target.value)}
+                // onChange={(t) => setRequestAddress(t.target.value)}
               />
               <input
+                ref={requestAmountRef}
                 className="input"
                 type="text"
                 name="side"
                 placeholder="Amount"
-                onChange={(t) => setRequestAmount(t.target.value)}
+                // onChange={(t) => setRequestAmount(t.target.value)}
               />
               <button className="button" type="submit" value="Submit">
                 Request Tokens
