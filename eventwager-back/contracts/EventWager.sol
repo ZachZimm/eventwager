@@ -51,7 +51,7 @@ contract EventWager is AccessControl
         owner = msg.sender;
         token = _token;
         state = States.BettingClosed;
-        sides = 'null||&&||null';
+        sides = ' ||&&|| ';
         _setupRole(OWNER_ROLE, owner);
     }
     modifier onlyOwner(){
@@ -190,6 +190,7 @@ contract EventWager is AccessControl
 
     function closeBetting() public onlyOwner onlyState(States.BettingOpen) {
         state = States.BettingClosed;
+        emit BettingClosed();
     }
 
     function isDeposited(address _address) public view returns (bool) {

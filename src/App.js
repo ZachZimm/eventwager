@@ -139,7 +139,7 @@ function App() {
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
-      const gas = await eventWagerContract.methods.endRound(_winningSide).estimateGas();
+      const gas = await eventWagerContract.methods.endRound(_winningSide).estimateGas({ from: account });
       const post = await eventWagerContract.methods.endRound(_winningSide).send({ from: account, gas });
     }
     catch(e)
@@ -159,7 +159,7 @@ function App() {
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
-      const gas = await eventWagerContract.methods.beginRound(_side1, _side2).estimateGas();
+      const gas = await eventWagerContract.methods.beginRound(_side1, _side2).estimateGas({from: account});
       const post = await eventWagerContract.methods.beginRound(_side1, _side2).send({ from: account, gas });
     }
     catch(e)
@@ -175,7 +175,7 @@ function App() {
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
-      const gas = await eventWagerContract.methods.closeBetting().estimateGas();
+      const gas = await eventWagerContract.methods.closeBetting().estimateGas({from: account});
       const post = await eventWagerContract.methods.closeBetting().send({from: account, gas });
     }
     catch(e)
@@ -210,7 +210,7 @@ function App() {
     try {
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
-      const gas = eventWagerContract.methods.requestTokens(_requestAddress, web3.utils.toWei(_requestAmount)).estimateGas();
+      const gas = eventWagerContract.methods.requestTokens(_requestAddress, web3.utils.toWei(_requestAmount)).estimateGas({from: account});
       const post = eventWagerContract.methods.requestTokens(_requestAddress, web3.utils.toWei(_requestAmount)).send({ from: account });
     }
     catch(error) {
