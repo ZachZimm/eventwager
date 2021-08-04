@@ -37,8 +37,8 @@
   justify-content: center;
   /* align-items: center; */
   display: flex;
-  /* background-color: #FA8072; */
-  background-color: #90309F;
+  /* background-color: #FA8072; Salmon */
+  background-color: #F96153;
   overflow:hidden;
   width: 80vw;
   border-radius: 15px;
@@ -50,7 +50,7 @@
 }
 .potBanner{
   /* background-color: #13c5f1; */
-  background-color: #303f9f;
+  background-color: #53A6F9;
   font-size: 20px;
   width: 40vw;
   border-bottom-left-radius: 15px;

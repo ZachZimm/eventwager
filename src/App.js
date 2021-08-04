@@ -357,7 +357,8 @@ function App() {
                     // onChange={(t) => setWager(t.target.value)}
                   />
                   <TextField
-                    ref={homeWagerSideRef}
+                    // ref={homeWagerSideRef}
+                    inputRef={homeWagerSideRef}
                     id="outlined-basic_2"
                     variant="outlined"
                     // className="input"
