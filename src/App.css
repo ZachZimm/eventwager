@@ -1,17 +1,22 @@
 .main {
   text-align: center;
-  display: flex;
   justify-content: center;
   background-color: #f2f1f5;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
   height: 100vh;
  }
  .card {
+  font-size: 17px;
   min-height: 50vh;
-  width: 50vw;
   display: flex;
+  width: 50vw;
+  display: felx;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 80px;
  }
  .form {
   height: 20vh;
@@ -28,16 +33,32 @@
  }
 .upper {
   /* height: 10vh; */
+  font-size: 20px;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   display: flex;
+  /* background-color: #FA8072; */
+  background-color: #90309F;
+  overflow:hidden;
+  width: 80vw;
+  border-radius: 15px;
+  /* height: 100vh; */
 }
 .upperElement{
-  margin-right: 10em;
+  margin-right: 5em;
+  margin-left: 5em;
+}
+.potBanner{
+  /* background-color: #13c5f1; */
+  background-color: #303f9f;
+  font-size: 20px;
+  width: 40vw;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 .lower{
   text-align: center;
   display: flex;
   justify-content: center;
-  height: 20vh;
+  /* height: 20vh; */
 }

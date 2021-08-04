@@ -4,6 +4,9 @@ import './App.css';
 import { eventWager } from './abi/abi';
 import { token } from './abi/abi';
 import Web3 from "web3";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const web3 = new Web3(Web3.givenProvider);
@@ -12,8 +15,20 @@ const web3 = new Web3(Web3.givenProvider);
 // const contractAddress = "0x011A4e19CE1dC370068869412cd6964f7787B2a7"; // Ropsten
 // const tokenAddress = "0x9D14FAaAA23EE94245e256fA834764B6999F42D5"; // Ropsten
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+ }));
 
 function App() {
+
+  const classes = useStyles();
+  const [number, setUint] = useState(0);
+  const [getNumber, setGet] = useState("0");
+
   // Input Refs
   const side1ref = useRef(null);
   const side2ref = useRef(null);
@@ -63,6 +78,10 @@ function App() {
   const getState = async (t) => {
     if(t) { t.preventDefault(); }
     const post = await eventWagerContract.methods.getState().call();
+    var _state = state;
+    // if(_state === 'null'){ _state = ''; }
+    // console.log('_state' + _state);
+    // setState(state);
     setState(post);
   }
 
@@ -307,80 +326,71 @@ function App() {
 
   const Home = () => {
     return(
-      <div className="main">
-        <div className="card">
-          <div className="upper">
-            <div className="upperElement">
-              1: {retrievedSide1} : {potFor} WC<br/> 2: {retrievedSide2} : {potAgainst} WC
+      <React.Fragment>
+        <div classname={classes.root}>
+          <div className="main">
+              <div className="upper">
+                <div className="upperElement">
+                  1: {retrievedSide1} : {potFor} WC<br/> 2: {retrievedSide2} : {potAgainst} WC
+                </div>
+                <div className="upperElement">
+                  State: {state}
+                  <br/>
+                  Your wager: {retrievedWager}
+                </div>
             </div>
-          <div className="upperElement">
-            State: {state}
+            <div className="potBanner"> Current pot: {currentPot} </div>
+            <div className="card">
+              <form className="form" id="submitWagerForm" autocomplete="off" onSubmit={wager}>
+                <label>
+                  Enter your wager and side:
+                  <br />
+                  <TextField
+                    inputRef={homeWagerAmountRef}
+                    // ref={homeWagerAmountRef}
+                    id="outlined-basic"
+                    variant="outlined"
+                    // className="input"
+                    type="text"
+                    name="amount"
+                    placeholder="# of WC"
+                    // onChange={(t) => setWager(t.target.value)}
+                  />
+                  <TextField
+                    ref={homeWagerSideRef}
+                    id="outlined-basic_2"
+                    variant="outlined"
+                    // className="input"
+                    type="text"
+                    name="side"
+                    placeholder="1 or 2"
+                    // onChange={(t) => setUserSide(t.target.value)}
+                  />
+                </label>
+                <div>
+                  <Button className="button" variant="contained" type="submit" color="primary" value="Submit">
+                    Submit
+                  </Button>
+                </div>
+              </form>
+            <div>
+              <form className="form" id="approveForm" value="Submit">
+                <Button className="button" variant="contained" color="secondary" onClick={allowSpend} type="button">
+                    Click to approve
+                </Button>
+              </form>
+            </div>
           </div>
         </div>
-        <form className="form" id="submitWagerForm" autocomplete="off" onSubmit={wager}>
-          <label>
-            Enter your wager and side:
-            <br />
-            <input
-              ref={homeWagerAmountRef}
-              className="input"
-              type="text"
-              name="amount"
-              placeholder="# of WC"
-              // onChange={(t) => setWager(t.target.value)}
-            />
-            <input
-              ref={homeWagerSideRef}
-              className="input"
-              type="text"
-              name="side"
-              placeholder="1 or 2"
-              // onChange={(t) => setUserSide(t.target.value)}
-            />
-          </label>
-          <button className="button" type="submit" value="Submit">
-            Submit
-          </button>
-        </form>
-        <br />
-        <div>
-          <button className="button" onClick={getUserWager} type="button">
-            Your current wager: 
-          </button>
-            {retrievedWager}
-        </div>
-        <br /> <br />
-        <div>
-          <button className="button" onClick={getCurrentPot} type="button">
-            Click for current pot
-          </button>
-          {currentPot}
-        </div>
-        <br /><br />
-        <div>
-          <button className="button" onClick={allowSpend} type="button">
-              Click to approve
-          </button>
-        </div>
-      <div className="lower">
-        <form className="form" onSubmit={getCurrentSides}>
-          <label>
-              <button className="button" type="submit" value="Submit">
-                Get Sides
-              </button>
-            </label>
-          </form>
-        </div>
       </div>
-    </div>
+    </React.Fragment>
     );
   }
 
   const Admin = () => {
     return(
       <div className="main">
-        <div className="card">
-          <div className="upper">
+        <div className="upper">
             <div className="upperElement">
               1: {retrievedSide1} : {potFor} WC<br/> 2: {retrievedSide2} : {potAgainst} WC
             </div>
@@ -390,33 +400,34 @@ function App() {
             Owner: {owner}
           </div>
         </div>
-        <form className="form" id="submitWagerForm" autocomplete="off" onSubmit={adminWager}>
-          <label>
-            Enter your wager and side:
-            <br />
-            <input
-              ref={adminWagerAmountRef}
-              className="input"
-              type="text"
-              name="amount"
-              placeholder="# of WC"
-              // value={newWager}
-              // onChange={(t) => setWager(t.target.value)}
-            />
-            <input
-              className="input"
-              ref={adminWagerSideRef}
-              type="text"
-              name="side"
-              placeholder="1 or 2"
-              // value={userSide}
-              // onChange={(t) => setUserSide(t.target.value)}
-            />
-          </label>
-          <button className="button" type="submit" value="Submit">
-            Submit
-          </button>
-        </form>
+        <div className="card">
+          <form className="form" id="submitWagerForm" autocomplete="off" onSubmit={adminWager}>
+            <label>
+              Enter your wager and side:
+              <br />
+              <input
+                ref={adminWagerAmountRef}
+                className="input"
+                type="text"
+                name="amount"
+                placeholder="# of WC"
+                // value={newWager}
+                // onChange={(t) => setWager(t.target.value)}
+              />
+              <input
+                className="input"
+                ref={adminWagerSideRef}
+                type="text"
+                name="side"
+                placeholder="1 or 2"
+                // value={userSide}
+                // onChange={(t) => setUserSide(t.target.value)}
+              />
+            </label>
+            <button className="button" type="submit" value="Submit">
+              Submit
+            </button>
+          </form>
         <br />
         <div>
           <button className="button" onClick={getUserWager} type="button">
