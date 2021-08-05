@@ -144,6 +144,7 @@ function App() {
     }
     catch(e)
     {
+      // TODO handle the errors.. I can do JSON parse in a try-catch
       alert('Apparently this is the best way to display blockchain errors :/\n\n' + e.message);
     }
     var form = document.getElementById("submitWagerForm");
@@ -393,68 +394,61 @@ function App() {
       <div className="main">
         <div className="upper">
             <div className="upperElement">
-              1: {retrievedSide1} : {potFor} WC<br/> 2: {retrievedSide2} : {potAgainst} WC
+              1: {retrievedSide1} : {potFor} WC<br/>2: {retrievedSide2} : {potAgainst} WC
             </div>
           <div className="upperElement">
-            State: {state}
-            <br/>
-            Owner: {owner}
+            State: {state}<br/>Your wager: {retrievedWager}
           </div>
+        </div>
+        <div className="addressBanner">
+          Owner: {owner}
         </div>
         <div className="card">
           <form className="form" id="submitWagerForm" autocomplete="off" onSubmit={adminWager}>
             <label>
               Enter your wager and side:
               <br />
-              <input
-                ref={adminWagerAmountRef}
-                className="input"
-                type="text"
-                name="amount"
-                placeholder="# of WC"
-                // value={newWager}
-                // onChange={(t) => setWager(t.target.value)}
-              />
-              <input
-                className="input"
-                ref={adminWagerSideRef}
-                type="text"
-                name="side"
-                placeholder="1 or 2"
-                // value={userSide}
-                // onChange={(t) => setUserSide(t.target.value)}
-              />
+              <TextField
+                    inputRef={adminWagerAmountRef}
+                    // ref={homeWagerAmountRef}
+                    id="outlined-basic"
+                    variant="outlined"
+                    // className="input"
+                    type="text"
+                    name="amount"
+                    placeholder="# of WC"
+                    // onChange={(t) => setWager(t.target.value)}
+                  />
+                  <TextField
+                    // ref={homeWagerSideRef}
+                    inputRef={adminWagerSideRef}
+                    id="outlined-basic_2"
+                    variant="outlined"
+                    // className="input"
+                    type="text"
+                    name="side"
+                    placeholder="1 or 2"
+                    // onChange={(t) => setUserSide(t.target.value)}
+                  />
             </label>
-            <button className="button" type="submit" value="Submit">
-              Submit
-            </button>
+            <div>
+              <Button className="button" variant="contained" color="primary" type="submit"  value="Submit">
+                Submit
+              </Button>
+            </div>
           </form>
-        <br />
-        <div>
-          <button className="button" onClick={getUserWager} type="button">
-            Your current wager: 
-          </button>
-            {retrievedWager}
-        </div>
-        <br /> <br />
-        <div>
-          <button className="button" onClick={getCurrentPot} type="button">
-            Click for current pot
-          </button>
-          {currentPot}
-        </div>
-        <br /><br />
-        <div>
-          <button className="button" onClick={allowSpend} type="button">
-              Click to approve
-          </button>
+          <div>
+              <Button className="button" variant="contained" color="secondary" onClick={allowSpend} type="button">
+                  Click to approve
+              </Button>
         </div>
         <div className="lower">
           <form className="form" id="beginRoundForm" autocomplete="off" onSubmit={beginRound}>
             <label>
-              <input
+              <TextField
                 className="input"
-                ref={side1ref}
+                variant="outlined"
+                inputRef={side1ref}
                 type="text"
                 name="name"
                 // value={retrievedSide1}
@@ -462,9 +456,10 @@ function App() {
                 placeholder="Side 1"
                 // onChange={(t) => setRetrievedSide1(t.target.value)}
               />
-              <input
+              <TextField
                 className="input"
-                ref={side2ref}
+                variant="outlined"
+                inputRef={side2ref}
                 type="text"
                 name="side"
                 placeholder="Side 2"
@@ -472,64 +467,60 @@ function App() {
                 id="side2"
                 // onChange={(t) => setRetrievedSide2(t.target.value)}
               />
-              <button className="button" type="submit" value="Submit">
+              <Button className="button" variant="outlined" color="primary" type="submit" value="Submit">
                 Begin Round
-              </button>
+              </Button>
             </label>
           </form>
           <form className="form" id="endRoundForm" autocomplete="off" onSubmit={endRound}>
           <label>
-            <input
-                ref={winningSideRef}
+            <TextField
+                inputRef={winningSideRef}
                 className="input"
+                variant="outlined"
                 type="text"
                 name="side"
                 placeholder="Winning Side"
                 // value={winningSide}
                 // onChange={(t) => setWinningSide(t.target.value)}
               />
-              <button className="button" type="submit" value="Submit">
+              <Button className="button" variant="outlined" color="primary" type="submit" value="Submit">
                 End Round
-              </button>
+              </Button>
             </label>
           </form>
           <form className="form" id="requestTokensForm" autocomplete="off" onSubmit={requestTokens}>
             <label>
-              <input
-                ref={requestAddressRef}
+              <TextField
+                inputRef={requestAddressRef}
+                variant="outlined"
                 className="input"
                 type="text"
                 name="name"
                 placeholder="0x address"
                 // onChange={(t) => setRequestAddress(t.target.value)}
               />
-              <input
-                ref={requestAmountRef}
+              <TextField
+                inputRef={requestAmountRef}
+                variant="outlined"
                 className="input"
                 type="text"
                 name="side"
                 placeholder="Amount"
                 // onChange={(t) => setRequestAmount(t.target.value)}
               />
-              <button className="button" type="submit" value="Submit">
+              <Button className="button" variant="outlined" color="primary" type="submit" value="Submit">
                 Request Tokens
-              </button>
+              </Button>
             </label>
           </form>
       </div>
       <div className="lower">
-        <form className="form" onSubmit={getCurrentSides}>
-          <label>
-              <button className="button" type="submit" value="Submit">
-                Get Sides
-              </button>
-            </label>
-          </form>
           <form className="form" onSubmit={closeBetting}>
             <label>
-              <button className="button" type="submit" value="Submit">
+              <Button className="button" variant="contained" color="secondary" type="submit" value="Submit">
                 Close Betting
-              </button>
+              </Button>
             </label>
           </form>
         </div>
