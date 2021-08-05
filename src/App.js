@@ -7,6 +7,7 @@ import Web3 from "web3";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@material-ui/core';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const web3 = new Web3(Web3.givenProvider);
@@ -28,6 +29,7 @@ function App() {
   const classes = useStyles();
   const [number, setUint] = useState(0);
   const [getNumber, setGet] = useState("0");
+  
 
   // Input Refs
   const side1ref = useRef(null);
@@ -41,6 +43,10 @@ function App() {
   const requestAmountRef = useRef(null);
   const changeTokenRef = useState(null)
   const changeContractRef = useState(null)
+  const homeRadioRef1 = useRef(null);
+  const homeRadioRef2 = useRef(null);
+  const adminRadioRef1 = useRef(null);
+  const adminRadioRef2 = useRef(null);
 
   // Getter hooks
   const [retrievedWager, setRetrievedWager] = useState(0);
@@ -132,15 +138,17 @@ function App() {
   const wager = async (t) => {
     t.preventDefault(); 
     var _amount = homeWagerAmountRef.current.value;
-    var _side  = homeWagerSideRef.current.value;
+    var _side;
+    if(homeRadioRef1.current.checked) { _side = 1; }
+    else if(homeRadioRef2.current.checked) { _side = 2; }
+    
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
       console.log('amount : ' + _amount + ' side : ' + _side);
       const gas = await eventWagerContract.methods.wager(_side, web3.utils.toWei(_amount)).estimateGas({ from: account});
-      console.log(1);
+      console.log(_side);
       const post = await eventWagerContract.methods.wager(_side, web3.utils.toWei(_amount)).send({ from: account, gas });
-      console.log(2);
     }
     catch(e)
     {
@@ -154,7 +162,10 @@ function App() {
   const adminWager = async (t) => {
     t.preventDefault(); 
     var _amount = adminWagerAmountRef.current.value;
-    var _side  = adminWagerSideRef.current.value;
+    var _side;
+    if(homeRadioRef1.current.checked) { _side = 1; }
+    else if(homeRadioRef2.current.checked) { _side = 2; }
+    
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
@@ -269,8 +280,8 @@ function App() {
     if(appNetwork !== 'ropsten' && netId !== 1627753267457) {
       alert('Please ensure that your wallet is connected to the Ropsten test network');
     }
-    console.log(appNetwork);
-    console.log(netId);
+    // console.log(appNetwork);
+    // console.log(netId);
   };
 
   const changeAddress = async (t) => {
@@ -286,7 +297,6 @@ function App() {
         setTokenAddress(_token);
     }
     catch(e){ alert(e); }
-
   };
 
   const renderValues = async () => {
@@ -300,7 +310,7 @@ function App() {
   };
 
   // Load values from blockchain on page load
-  // networkCheck(); TODO re-enable this
+  networkCheck(); 
   renderValues();
 
   // Listener methods
@@ -332,7 +342,7 @@ function App() {
           <div className="main">
               <div className="upper">
                 <div className="upperElement">
-                  1: {retrievedSide1} : {potFor} WC<br/> 2: {retrievedSide2} : {potAgainst} WC
+                  {retrievedSide1} : {potFor} WC<br/>{retrievedSide2} : {potAgainst} WC
                 </div>
                 <div className="upperElement">
                   State: {state}
@@ -357,17 +367,10 @@ function App() {
                     placeholder="# of WC"
                     // onChange={(t) => setWager(t.target.value)}
                   />
-                  <TextField
-                    // ref={homeWagerSideRef}
-                    inputRef={homeWagerSideRef}
-                    id="outlined-basic_2"
-                    variant="outlined"
-                    // className="input"
-                    type="text"
-                    name="side"
-                    placeholder="1 or 2"
-                    // onChange={(t) => setUserSide(t.target.value)}
-                  />
+                  <RadioGroup className="radioGroup" row name="sidegroup">
+                    <FormControlLabel className="radio" value="side1" control={<Radio />} label={retrievedSide1} inputRef={homeRadioRef1}/>
+                    <FormControlLabel className="radio" value="side2" control={<Radio />} label={retrievedSide2} inputRef={homeRadioRef2}/>
+                  </RadioGroup>
                 </label>
                 <div>
                   <Button className="button" variant="contained" type="submit" color="primary" value="Submit">
@@ -419,17 +422,10 @@ function App() {
                     placeholder="# of WC"
                     // onChange={(t) => setWager(t.target.value)}
                   />
-                  <TextField
-                    // ref={homeWagerSideRef}
-                    inputRef={adminWagerSideRef}
-                    id="outlined-basic_2"
-                    variant="outlined"
-                    // className="input"
-                    type="text"
-                    name="side"
-                    placeholder="1 or 2"
-                    // onChange={(t) => setUserSide(t.target.value)}
-                  />
+                  <RadioGroup className="radioGroup" row name="sidegroup">
+                    <FormControlLabel className="radio" value="side1" control={<Radio />} label={retrievedSide1} inputRef={adminRadioRef1}/>
+                    <FormControlLabel className="radio" value="side2" control={<Radio />} label={retrievedSide2} inputRef={adminRadioRef2}/>
+                  </RadioGroup>
             </label>
             <div>
               <Button className="button" variant="contained" color="primary" type="submit"  value="Submit">
@@ -538,24 +534,27 @@ function App() {
               <label>
                 <div>Token: {tokenAddress}</div><div>Contract: {contractAddress}</div>
                 <br />
-                <input
-                  ref={changeTokenRef}
+                <TextField
+                  inputRef={changeTokenRef}
                   className="input"
                   type="text"
                   name="changeToken"
                   placeholder="Token 0x address"
                 />
-                <input
-                  ref={changeContractRef}
+                <TextField
+                  inputRef={changeContractRef}
+                  // variant="outlined"
                   className="input"
                   type="text"
                   name="changeContract"
                   placeholder="Contract 0x address"
                 />
               </label>
-              <button className="button" type="submit" value="Submit">
-                Change Addresses
-              </button>
+              <div>
+                <Button className="button" variant="contained" color="secondary" type="submit" value="Submit">
+                  Change Addresses
+                </Button>
+              </div>
             </form>
           </div>
         </div>

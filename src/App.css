@@ -33,7 +33,9 @@
  .button {
   width: 20vw;
   height: 5vh;
-  margin-right: 3em;
+ }
+ .radioGroup{
+  justify-content: center;
  }
 .upper {
   /* height: 10vh; */
