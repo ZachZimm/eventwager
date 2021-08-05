@@ -82,6 +82,9 @@
   justify-content: center;
   /* height: 20vh; */
 }
+input{
+  text-align: center;
+}
 ::-webkit-input-placeholder {
   text-align: center;
 }

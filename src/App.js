@@ -361,7 +361,7 @@ function App() {
                     // ref={homeWagerAmountRef}
                     id="outlined-basic"
                     variant="outlined"
-                    // className="input"
+                    className="input"
                     type="text"
                     name="amount"
                     placeholder="# of WC"
@@ -416,7 +416,7 @@ function App() {
                     // ref={homeWagerAmountRef}
                     id="outlined-basic"
                     variant="outlined"
-                    // className="input"
+                    className="input"
                     type="text"
                     name="amount"
                     placeholder="# of WC"
