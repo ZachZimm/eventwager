@@ -1,43 +1,112 @@
 .main {
   text-align: center;
-  display: flex;
   justify-content: center;
   background-color: #f2f1f5;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
   height: 100vh;
  }
- .card {
-  min-height: 50vh;
-  width: 50vw;
+ .about {
+  text-align: center;
+  justify-content: top;
+  background-color: #f2f1f5;
   display: flex;
+  flex-direction: column;
+  align-items:center;
+  height: 100vh;
+  font-size: 20px;
+ }
+ .card {
+  font-size: 17px;
+  min-height: 50vh;
+  display: flex;
+  width: 50vw;
+  display: felx;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 100px;
  }
  .form {
   height: 20vh;
-  width: 20vw;
+  /* width: 20vw; */
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  margin-right: 1em;
+  /* margin-right: 1em; */
+  /* margin-left: 1em; */
+  padding-right: 1em;
+  padding-left: 1em;
+  /* padding: 1em; */
  }
  .button {
   width: 20vw;
   height: 5vh;
-  margin-right: 3em;
+ }
+ .radioGroup{
+  justify-content: center;
  }
 .upper {
   /* height: 10vh; */
+  font-size: 20px;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   display: flex;
+  /* background-color: #FA8072; Salmon */
+  /* background-color: #F96153; Better? */
+  /* background-color: #C51162; */ /* Probably best^ I'm thinking maybe just lighten these colors */
+  /* background-color: #F50057; */
+  background-color: #FF2E78;
+  overflow:hidden;
+  width: 95vw;
+  border-radius: 15px;
+  /* height: 100vh; */
 }
 .upperElement{
-  margin-right: 10em;
+  margin-right: 5em;
+  margin-left: 5em;
+}
+.potBanner{
+  /* background-color: #13c5f1; */
+  /* background-color: #53A6F9; */
+  /* background-color: #303F9F; */
+  /* background-color: #3F51B4; */
+  background-color: #6070C7;
+  font-size: 20px;
+  width: 40vw;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+.addressBanner{
+  /* background-color: #3F51B4; */
+  background-color: #6070C7;
+  font-size: 20px;
+  width: 70vw;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 .lower{
   text-align: center;
   display: flex;
   justify-content: center;
-  height: 20vh;
+  /* height: 20vh; */
+}
+input{
+  text-align: center;
+}
+::-webkit-input-placeholder {
+  text-align: center;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+  text-align: center;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+  text-align: center;  
+}
+
+:-ms-input-placeholder {  
+  text-align: center; 
 }
