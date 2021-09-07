@@ -17,8 +17,10 @@ function App() {
   // Input Refs
   const side1ref = useRef(null);
   const side2ref = useRef(null);
-  const amountRef = useRef(null);
-  const sideRef = useRef(null);
+  const adminWagerAmountRef = useRef(null);
+  const adminWagerSideRef = useRef(null);
+  const homeWagerAmountRef = useRef(null);
+  const homeWagerSideRef = useRef(null);
   const winningSideRef = useRef(null);
   const requestAddressRef = useRef(null);
   const requestAmountRef = useRef(null);
@@ -110,10 +112,8 @@ function App() {
   // Setter methods
   const wager = async (t) => {
     t.preventDefault(); 
-    var _amount = amountRef.current.value;
-    var _side  = sideRef.current.value;
-    console.log('amountRef : ' + amountRef.current.value);
-    console.log('sideRef : ' + sideRef.current.value);
+    var _amount = homeWagerAmountRef.current.value;
+    var _side  = homeWagerSideRef.current.value;
     try{
       const accounts = await window.ethereum.enable();
       const account = accounts[0];
@@ -122,8 +122,27 @@ function App() {
       console.log(1);
       const post = await eventWagerContract.methods.wager(_side, web3.utils.toWei(_amount)).send({ from: account, gas });
       console.log(2);
-      getUserWager(t);
-      getCurrentPot(t);
+    }
+    catch(e)
+    {
+      alert('Apparently this is the best way to display blockchain errors :/\n\n' + e.message);
+    }
+    var form = document.getElementById("submitWagerForm");
+    form.reset();
+  };
+
+  const adminWager = async (t) => {
+    t.preventDefault(); 
+    var _amount = adminWagerAmountRef.current.value;
+    var _side  = adminWagerSideRef.current.value;
+    try{
+      const accounts = await window.ethereum.enable();
+      const account = accounts[0];
+      console.log('amount : ' + _amount + ' side : ' + _side);
+      const gas = await eventWagerContract.methods.wager(_side, web3.utils.toWei(_amount)).estimateGas({ from: account});
+      console.log(1);
+      const post = await eventWagerContract.methods.wager(_side, web3.utils.toWei(_amount)).send({ from: account, gas });
+      console.log(2);
     }
     catch(e)
     {
@@ -303,18 +322,20 @@ function App() {
             Enter your wager and side:
             <br />
             <input
+              ref={homeWagerAmountRef}
               className="input"
               type="text"
               name="amount"
               placeholder="# of WC"
-              onChange={(t) => setWager(t.target.value)}
+              // onChange={(t) => setWager(t.target.value)}
             />
             <input
+              ref={homeWagerSideRef}
               className="input"
               type="text"
               name="side"
               placeholder="1 or 2"
-              onChange={(t) => setUserSide(t.target.value)}
+              // onChange={(t) => setUserSide(t.target.value)}
             />
           </label>
           <button className="button" type="submit" value="Submit">
@@ -369,12 +390,12 @@ function App() {
             Owner: {owner}
           </div>
         </div>
-        <form className="form" id="submitWagerForm" autocomplete="off" onSubmit={wager}>
+        <form className="form" id="submitWagerForm" autocomplete="off" onSubmit={adminWager}>
           <label>
             Enter your wager and side:
             <br />
             <input
-              ref={amountRef}
+              ref={adminWagerAmountRef}
               className="input"
               type="text"
               name="amount"
@@ -384,7 +405,7 @@ function App() {
             />
             <input
               className="input"
-              ref={sideRef}
+              ref={adminWagerSideRef}
               type="text"
               name="side"
               placeholder="1 or 2"
@@ -539,6 +560,23 @@ function App() {
     )
   }
 
+  const About = () => {
+    return(
+      <div className="main">
+        <label>
+          <h1>What is this?</h1>
+          <br />
+          <h2>It's is a 'decentralized, permissioned prediction market protocol' running on the Ethereum blockchain.</h2>
+          <br />
+          <h2>A peer-to-peer betting site.</h2>
+        </label>
+        <label>
+          <h2>Step 1:</h2>
+        </label>
+      </div>
+    )
+  }
+
   return (
     <Router>
       <Switch>
@@ -550,6 +588,9 @@ function App() {
         </Route>
         <Route exact path="/changeaddress">
           <ChangeAddress />
+        </Route>
+        <Route exact path="/about">
+          <About />
         </Route>
       </Switch>
     </Router>
