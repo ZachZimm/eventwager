@@ -585,7 +585,7 @@ function App() {
       <div className="about">
         <label>
           <h1>What's this?</h1>
-          <p>It's is a 'decentralized, permissioned prediction market protocol' running on the Ethereum blockchain (?).</p>
+          <p>It's is an open-source 'decentralized, permissioned prediction market protocol' running on the Ethereum blockchain (?).</p>
           <p>Users are able to bet against each other on the outcome of a given event (sports game, election, etc). At</p>
           <p>present, wagers are made with the WC token. And because this token exists on the Ropsten test network, it</p>
           <p>has no value. The specific token used can be changed fairly easily, but this is sort of a test.</p>
@@ -606,7 +606,7 @@ function App() {
         </label>
         <label>
           <h2>Step 2: Ropsten</h2>
-          <p>This app is currently only deployed to the Roopsten test network chain of Ethereum, which means all crypto tokens</p>
+          <p>This app is currently only deployed to the Ropsten test network chain of Ethereum, which means all crypto tokens</p>
           <p>(on the test network) have no value. This can be changed without too much difficulty (I mean to change the site, not what follows).</p>
           <br />
           <p>To connect to the Ropsten test network, open MetaMask and click 'Ethereum Mainnnet' (between the fox icon and your</p>
@@ -652,7 +652,7 @@ function App() {
           <label>
             <h2>More?</h2>
             <p>Probably</p>
-            <p>Oh right, you'll need some testnet ETH as well. You can get that on <a href="https://faucet.dimensions.network/">faucet.dimensions.network</a>.</p>
+            <p>Oh right, you'll need some testnet ETH as well. You can get that on <a href="https://faucet.dimensions.network/">faucet.dimensions.network</a>, or by asking around.</p>
             <br/>
             <br/>
           </label>
