@@ -586,8 +586,9 @@ function App() {
         <label>
           <h1>What's this?</h1>
           <p>It's is a 'decentralized, permissioned prediction market protocol' running on the Ethereum blockchain (?).</p>
-          <p>Users are able to bet against each other on the outcome of a given event. At present, wagers are made with the</p>
-          <p>WC token. Because this token exists on the Ropsten test network, it has no value.</p>
+          <p>Users are able to bet against each other on the outcome of a given event (sports game, election, etc). At</p>
+          <p>present, wagers are made with the WC token. And because this token exists on the Ropsten test network, it</p>
+          <p>has no value. The specific token used can be changed fairly easily, but this is sort of a test.</p>
           <br />
         </label>
         <label>
