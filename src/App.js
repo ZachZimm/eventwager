@@ -691,7 +691,7 @@ function App() {
         
         
         <label>
-          <h1>À propos de moi</h1>
+          <h1 className="aboutcardheader">À propos de moi</h1>
           <p>Bonjour! J'mappelle Zach Zimmermann. Je suis un etudiant a l'Université du Nevada à Reno où j'édudie la philosophie et l'informatique.</p>
           <p>J'adore Plato parce que sa pensée est créative. Il est souvent incompris, mais il y a un attrait pour la connaissaince secrète.</p>
           <p>J'ai des intérêts dans: marchés de toutes sortes, trading algorithmique, science des données, et blockchain. Mon travail indépendant il y a est à <a href="https://www.github.com/ZachZimm/">github.com/zachzimm</a>.</p>

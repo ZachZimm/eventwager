@@ -17,7 +17,7 @@
   width: 100vw;
 }
 .navbar a {
-  color: #e7e7e7;
+  color: #f2f1f5;
   /* color: #333333; */
   text-decoration: none;
 }
@@ -33,14 +33,14 @@
  }
  .navbar .brand {
   display: block;
-  color: #e7e7e7;
+  color: #f2f1f5;
   /* color: #c9245f; */
  /* Remove padding from top/bottom and add 24px padding right/left */
   padding: 0 24px;
   font-size: 24px;
 }
 .navbar ul li a {
-  color: #e7e7e7;
+  color: #f2f1f5;
   /* color: #333333; */
   padding: 24px;
   /*Let's make the anchor display block.
@@ -63,6 +63,12 @@
   align-items:center;
   height: 100vh;
   font-size: 20px;
+ }
+ .aboutcardheader {
+  background-color: #6070C7;
+  /* font-size: 20px; */
+  /* width: 40vw; */
+  border-radius: 15px;
  }
  .card {
   font-size: 17px;
