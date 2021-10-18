@@ -309,8 +309,14 @@ function App() {
     getOwner();
   };
 
+  const isAbout = async () => {
+    if(window.location.href.includes('about')) { return true; }
+    else { return false; }
+  }
+
   // Load values from blockchain on page load
-  if(window.location.href.charAt(window.location.href.length - 1) != 't');
+  // if(window.location.href.charAt(window.location.href.length - 1) != 't')
+  if(!isAbout())
   {
     networkCheck(); 
     renderValues();
@@ -318,35 +324,35 @@ function App() {
 
   // Listener methods
   eventWagerContract.events.Wager().on('data', (event) => {
-    if(window.location.href.charAt(window.location.href.length - 1) != 't');
+    if(!isAbout())
     {
      renderValues();
     }
   }).on('error', console.error);
 
   eventWagerContract.events.RoundStart().on('data', (event) => {
-    if(window.location.href.charAt(window.location.href.length - 1) != 't');
+    if(!isAbout())
     {
      renderValues();
     }
   }).on('error', console.error);
 
   eventWagerContract.events.BettingClosed().on('data', (event) => {
-    if(window.location.href.charAt(window.location.href.length - 1) != 't');
+    if(!isAbout())
     {
      renderValues();
     } // TODO this should do something more. The user should be able to tell the state
   }).on('error', console.error);
 
   eventWagerContract.events.RoundEnd().on('data', (event) => {
-    if(window.location.href.charAt(window.location.href.length - 1) != 't');
+    if(!isAbout())
     {
      renderValues();
     }
   }).on('error', console.error);
 
   eventWagerContract.events.PassOwnership().on('data', (event) => {
-    if(window.location.href.charAt(window.location.href.length - 1) != 't');
+    if(!isAbout())
     {
      renderValues();
     } // TODO This should do something entireley different
@@ -592,7 +598,7 @@ function App() {
           <br />
         </label>
         <label>
-          <h2>A peer-to-peer betting site.</h2>
+          <h2>A peer-to-peer preditction / betting site.</h2>
           <p>First, an event is chosen by an admin (currently only one, but that can change). Once an event is chosen and the</p>
           <p>sides are established, users are able to place a wager on the side they prefer. Depending on the event, betting may</p>
           <p>close before a winner is decided. Both sides must have backers or all wagered funds will be returned (I think?).</p>
@@ -661,6 +667,41 @@ function App() {
     )
   }
 
+  const AboutMeFr = () => {
+    return(
+      
+      <div className="about">
+        <nav class="navbar">
+          <a class="brand" href="#">ZZ</a>
+          <ul>
+            <li>
+              <a href="#">Blog</a>
+            </li>
+            <li>
+              <a href="#">About</a>
+            </li>
+            <li>
+              <a href="#">Profile</a>
+            </li>
+            <li>
+              <a href="#">Contact</a>
+            </li>
+          </ul>
+        </nav>
+        
+        
+        <label>
+          <h1>À propos de moi</h1>
+          <p>Bonjour! J'mappelle Zach Zimmermann. Je suis un etudiant a l'Université du Nevada à Reno où j'édudie la philosophie et l'informatique.</p>
+          <p>J'adore Plato parce que sa pensée est créative. Il est souvent incompris, mais il y a un attrait pour la connaissaince secrète.</p>
+          <p>J'ai des intérêts dans: marchés de toutes sortes, trading algorithmique, science des données, et blockchain. Mon travail indépendant il y a est à <a href="https://www.github.com/ZachZimm/">github.com/zachzimm</a>.</p>
+          <p>Mon projet le plus récent (provisoirement appelé EventWager) se trouve sur <a href="https://zzimm.com/about">zzimm.com/about</a>, mais MetaMask est requis pour utiliser l'application.</p>
+          <br />
+        </label>  
+      </div>
+    )
+  }
+
   return (
     <Router>
       <Switch>
@@ -675,6 +716,9 @@ function App() {
         </Route>
         <Route exact path="/about">
           <About />
+        </Route>
+        <Route exact path="/fr/aboutme">
+          <AboutMeFr />
         </Route>
       </Switch>
     </Router>
