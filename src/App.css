@@ -8,7 +8,9 @@
   height: 100vh;
  }
 .navbar {
-  background-color: #333333;
+  /* background-color: #333333; */
+  /* background-color: #FF2E78; */
+  background-color: #e32b6d;
   display: flex;
   /* let's align the items so everything is nice and centered */
   align-items: center;
@@ -16,6 +18,7 @@
 }
 .navbar a {
   color: #e7e7e7;
+  /* color: #333333; */
   text-decoration: none;
 }
 .navbar ul {
@@ -31,12 +34,14 @@
  .navbar .brand {
   display: block;
   color: #e7e7e7;
+  /* color: #c9245f; */
  /* Remove padding from top/bottom and add 24px padding right/left */
   padding: 0 24px;
   font-size: 24px;
 }
 .navbar ul li a {
   color: #e7e7e7;
+  /* color: #333333; */
   padding: 24px;
   /*Let's make the anchor display block.
      This will ensure when we hover, focus, or is active we get the full width and height 
@@ -47,7 +52,8 @@
 /* When a use hovers or focuses to a link change the background */
 .navbar ul a:hover,
 .navbar ul a:focus {
-  background-color: #272727;
+  /* background-color: #272727; */
+  background-color: #FF2E78;
 }
  .about {
   text-align: center;

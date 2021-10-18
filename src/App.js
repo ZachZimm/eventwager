@@ -678,13 +678,13 @@ function App() {
               <a href="#">Blog</a>
             </li>
             <li>
-              <a href="#">About</a>
+              <a href="https://zzimm.com/fr/aboutme">À propos</a>
             </li>
             <li>
-              <a href="#">Profile</a>
+              <a href="https://zzimm.com">EventWager</a>
             </li>
             <li>
-              <a href="#">Contact</a>
+              <a href="https://github.com/zachzimm">GitHub</a>
             </li>
           </ul>
         </nav>
