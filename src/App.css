@@ -1,6 +1,6 @@
 .main {
   text-align: center;
-  justify-content: center;
+  justify-content: top;
   background-color: #f2f1f5;
   display: flex;
   flex-direction: column;
@@ -67,9 +67,14 @@
  .aboutcardheader {
   background-color: #6070C7;
   /* font-size: 20px; */
-  width: 30vw;
-  
-  padding: 35px;
+  /* width: 30vw; */
+  width: 35vw;
+  display:block;
+  margin: auto;
+  margin-top: .5em;
+  padding: 30px;
+  padding-top: 25px;
+  padding-bottom: 25px;
   border-radius: 15px;
  }
  .card {

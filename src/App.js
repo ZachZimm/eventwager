@@ -590,7 +590,7 @@ function App() {
     return(
       <div className="about">
         <label>
-          <h1>What's this?</h1>
+          <h1 className="aboutcardheader">What's this?</h1>
           <p>It's is an open-source 'decentralized, permissioned prediction market protocol' running on the Ethereum blockchain (?).</p>
           <p>Users are able to bet against each other on the outcome of a given event (sports game, election, etc). At</p>
           <p>present, wagers are made with the WC token. And because this token exists on the Ropsten test network, it</p>
@@ -598,20 +598,20 @@ function App() {
           <br />
         </label>
         <label>
-          <h2>A peer-to-peer preditction / betting site.</h2>
+          <h2 className="aboutcardheader">A peer-to-peer preditction / betting site</h2>
           <p>First, an event is chosen by an admin (currently only one, but that can change). Once an event is chosen and the</p>
           <p>sides are established, users are able to place a wager on the side they prefer. Depending on the event, betting may</p>
           <p>close before a winner is decided. Both sides must have backers or all wagered funds will be returned (I think?).</p>
           <br />
           </label>
         <label>
-          <h2>Step 1: MetaMask</h2>
+          <h2 className="aboutcardheader">Step 1: MetaMask</h2>
           <p>Install the <a href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en"> MetaMask browser extenstion</a>. It is a cryptocurrency wallet which is capable of interacting with Web3</p>
           <p>apps (like this site). When you install, it will provide further set up instructions, and while you should save your</p>
           <p>mnemonic, it won't be too important as long as you're only using the testnet.</p>
         </label>
         <label>
-          <h2>Step 2: Ropsten</h2>
+          <h2 className="aboutcardheader">Step 2: Ropsten</h2>
           <p>This app is currently only deployed to the Ropsten test network chain of Ethereum, which means all crypto tokens</p>
           <p>(on the test network) have no value. This can be changed without too much difficulty (I mean to change the site, not what follows).</p>
           <br />
@@ -620,13 +620,13 @@ function App() {
           <br/>
         </label>
         <label>
-          <h2>Step 3: Acquire WC tokens</h2>
+          <h2 className="aboutcardheader">Step 3: Acquire WC tokens</h2>
           <br />
           <p>???</p>
           <br />
         </label>
         <label>
-          <h2>Step 4: Wager</h2>
+          <h2 className="aboutcardheader">Step 4: Wager</h2>
           <p>Once you "know" which side is going to win, you can head over to <a href="https://zzimm.com">zzimm.com</a> and place your wager.</p>
           <p>If you haven't already, you'll be asked to connect MetaMask to zzimm.com, which you should do. The dashboard shows the 'State'</p>
           <p>Each side's respective pot, your own wager, and the total pot. State indicates whether an event is active on the site, 0 meaning no,</p>
@@ -638,25 +638,25 @@ function App() {
           <br/>
         </label>
         <label>
-          <h2>Step 5: Winning (hopefully)</h2>
+          <h2 className="aboutcardheader">Step 5: Winning (hopefully)</h2>
           <p>When an event finishes, the total pot is split among the users who wagered on the winning side, in according to their proportion of the</p>
           <p>winning side's pot. If your wager makes up 2/3 of the bets for the winning side, you recieve 2/3 of the total pot. If you bet for the</p>
           <p>losing side, you win nothing.</p>
           <br/>
         </label>
         <label>
-          <h2>Blockchain?</h2>
+          <h2 className="aboutcardheader">Blockchain?</h2>
           <p>To see (but not change lol) the Ethereum addresses for both the contract and token, visit <a href="https://zzimm.com/changeaddress">zzimm.com/changeaddress</a>.</p>
           <p>The source code can be found at <a href="https://github.com/ZachZimm/eventwager">https://github.com/ZachZimm/eventwager</a>.</p>
           <br/>
           <label>
-            <h2>Permissioned?</h2>
+            <h2 className="aboutcardheader">Permissioned?</h2>
             <p>It just means that there is a user who has the ability to begin and end events, setting the sides and choosing the winner. This 'governance structure' isn't</p>
             <p>nessecarily permanent, but as of now the wallet <a href="https://ropsten.etherscan.io/address/0xaBc1B66F2787239D6E293C01eC3Aa8186b5FE912">0xaBc1B66F2787239D6E293C01eC3Aa8186b5FE912</a> owns this smart contract.</p>
             <br/>
           </label>
           <label>
-            <h2>More?</h2>
+            <h2 className="aboutcardheader">More?</h2>
             <p>Probably</p>
             <p>Oh right, you'll need some testnet ETH as well. You can get that on <a href="https://faucet.dimensions.network/">faucet.dimensions.network</a>, or by asking around.</p>
             <br/>
