@@ -67,7 +67,9 @@
  .aboutcardheader {
   background-color: #6070C7;
   /* font-size: 20px; */
-  /* width: 40vw; */
+  width: 30vw;
+  
+  padding: 35px;
   border-radius: 15px;
  }
  .card {
