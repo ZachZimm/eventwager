@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import React, { useState, useRef } from "react";
 import './App.css';
 import { eventWager } from './abi/abi';
@@ -9,6 +8,13 @@ import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@material-ui/core';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// Images for the French project
+import caenskyline from './images/caen-skyline.png';
+import caenmusee from './images/caen-musee.jpeg';
+import caenchateau from './images/caen-chateau.png';
+import rouensquare from './images/rouen-square.png';
+import rouennotredame from './images/rouen-notredame.png'
+
 
 const web3 = new Web3(Web3.givenProvider);
 // const contractAddress = "0x73A6Da02A8876C3E01017fB960C912dA0a423817"; // Ganache
@@ -290,10 +296,10 @@ function App() {
     var _token = changeTokenRef.current.value;
 
     try{ 
-      if(_contract.charAt(1) == 'x') {
+      if(_contract.charAt(1) === 'x') {
         setContractAddress(_contract);
     }
-    if(_token.charAt(1) == 'x') 
+    if(_token.charAt(1) === 'x') 
         setTokenAddress(_token);
     }
     catch(e){ alert(e); }
@@ -669,7 +675,6 @@ function App() {
 
   const AboutMeFr = () => {
     return(
-      
       <div className="about">
         <nav class="navbar">
           <a class="brand" href="#">ZZ</a>
@@ -702,6 +707,89 @@ function App() {
     )
   }
 
+  const TourFr = () => {
+    return(
+      <div className="tourmain">
+        {/* <nav class="navbar">
+          <a class="brand" href="#">ZZ</a>
+          <ul>
+            <li>
+              <a href="#">Blog</a>
+            </li>
+            <li>
+              <a href="https://zzimm.com/fr/aboutme">À propos</a>
+            </li>
+            <li>
+              <a href="https://zzimm.com">EventWager</a>
+            </li>
+            <li>
+              <a href="https://github.com/zachzimm">GitHub</a>
+            </li>
+          </ul>
+        </nav> */}
+        <h1 className="tourcardheader">Un tour en Provence</h1>
+        <div className="tourframe">
+          <div classname="vtourimgframe">
+            <img 
+              className="tourimg"
+              src={caenskyline}
+              alt="Caen"
+            />
+            <div className="htourimgframe">
+              <img 
+                className="tourimg"
+                src={caenmusee}
+                alt="Musee de Provence"
+              />
+              <img
+                width="30%" 
+                className="tourimgshort"
+                src={caenchateau}
+                alt="Chateau de Caen"
+              />
+            </div>
+          </div>
+          <div className="tourtext">
+              <h3>Quand vous arrivez à Caen, vous irez à l’hôtel Mercure.</h3>
+              <h3>Après, vous faites le transport en commun à Château de Caen voir le Musée de Normandie.</h3>
+              <br/>
+              <h3>Ensuite, on admire les paysages en Jardin Botanique de Caen et l'église de la Ste-Trinité.</h3>
+              <br/>
+              <h3>Pour le déjeuner, vous avez À Contre Seus manger tripes à la mode de Caen! Ensuite, vous acheterez un billet de train pour Rouen.</h3>
+            <br />
+          </div>
+        </div>
+        <div className="tourframe">
+          <div className="tourtext">
+                <h3>Vous arrivez à Rouen-Rive-Droite. Quand vous le departez, vous irez à la cathédrale Notre-Dame par le réseau.</h3>
+                <h3>Après, vous pouvez visiter le Musée des Beaux-Arts et le Jardin des Plantes. </h3>
+                <br/>
+                <h3>Vous goûtez la cuisine locale à Tandem. Vous mangez le mouton et vous bouvez le cider! Vous dormirez à l'Hôtel de Bourgtheroulde.</h3>
+                <br/>
+                <h3>Ensuite, vous achetez un billet de train pour le Havre. </h3>
+              <br />
+            </div>
+          <div className="vtournimgframe">
+            <div className="htourimgframe">
+              <img 
+                className="tourimgshort"
+                src={rouennotredame}
+                alt="Rouen"
+              />
+              <img 
+                className="tourimglong"
+                src={rouensquare}
+                alt="Rouen"
+              />
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    )
+    // Bigger text, wider images, maybe I'll download and crop them
+  }
+
   return (
     <Router>
       <Switch>
@@ -719,6 +807,9 @@ function App() {
         </Route>
         <Route exact path="/fr/aboutme">
           <AboutMeFr />
+        </Route>
+        <Route exact path="/fr/tour">
+          <TourFr />
         </Route>
       </Switch>
     </Router>

@@ -7,6 +7,66 @@
   align-items:center;
   height: 100vh;
  }
+.tourmain{
+  text-align: center;
+  justify-content: top;
+  background-color: #f2f1f5;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+}
+.tourframe {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.tourimg {
+  width: 100%;
+  height: 50%;
+  padding: 0%;
+}
+.tourimgshort {
+  width: 30%;
+  padding: 0%;
+}
+.tourimglong {
+  width: 70%;
+  padding: 0%;
+}
+.vtourimgframe{
+  display: flex;
+  flex-direction: column;
+  padding: 0%;
+  /* width: 60%; */
+}
+.htourimgframe{
+  display: flex;
+  flex-direction: row;
+}
+.tourtext{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size:x-large;
+  font-family:'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+  /* width: 60%;   */
+}
+.tourcardheader {
+  background-color: #6070C7;
+  /* font-size: 20px; */
+  /* width: 30vw; */
+  width: 35vw;
+  display:block;
+  margin: auto;
+  margin-top: .5em;
+  padding: 30px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  border-radius: 15px;
+  font-variant: small-caps;
+}
 .navbar {
   /* background-color: #333333; */
   /* background-color: #FF2E78; */
