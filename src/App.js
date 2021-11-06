@@ -13,7 +13,8 @@ import caenskyline from './images/caen-skyline.png';
 import caenmusee from './images/caen-musee.jpeg';
 import caenchateau from './images/caen-chateau.png';
 import rouensquare from './images/rouen-square.png';
-import rouennotredame from './images/rouen-notredame.png'
+import rouennotredame from './images/rouen-notredame.png';
+import rouenjardin from './images/rouen-jardin.png';
 
 
 const web3 = new Web3(Web3.givenProvider);
@@ -774,15 +775,19 @@ function App() {
               <img 
                 className="tourimgshort"
                 src={rouennotredame}
-                alt="Rouen"
+                alt="Notre Dame de Rouen"
               />
               <img 
                 className="tourimglong"
                 src={rouensquare}
-                alt="Rouen"
+                alt="Rouen Square"
               />
             </div>
-            
+            <img 
+                // className="tourimglong"
+                src={rouenjardin}
+                alt="Rouen"
+              />
           </div>
         </div>
       </div>
