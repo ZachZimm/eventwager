@@ -12045,6 +12045,11 @@
   "resolved" "https://registry.npmjs.org/toidentifier/-/toidentifier-1.0.0.tgz"
   "version" "1.0.0"
 
+"tokenize@^0.0.3":
+  "integrity" "sha1-Koy0vv49d2H1sp5TJ1bu47waM/4="
+  "resolved" "https://registry.npmjs.org/tokenize/-/tokenize-0.0.3.tgz"
+  "version" "0.0.3"
+
 "tough-cookie@^2.3.3", "tough-cookie@~2.5.0":
   "integrity" "sha512-nlLsUzgm1kfLXSXfRZMc1KLAugd4hqJHDTvc2hDIwS3mZAfMEuMbc03SujMF+GEcpaX/qboeycw6iO8JwVv2+g=="
   "resolved" "https://registry.npmjs.org/tough-cookie/-/tough-cookie-2.5.0.tgz"

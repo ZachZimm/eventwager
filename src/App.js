@@ -15,6 +15,9 @@ import caenchateau from './images/caen-chateau.png';
 import rouensquare from './images/rouen-square.png';
 import rouennotredame from './images/rouen-notredame.png';
 import rouenjardin from './images/rouen-jardin.png';
+import lehavreskyline from './images/lehavre-skyline.png';
+import lehavremuma from './images/lehavre-muma2.png';
+import lehavremarina from './images/lehavre-marina.png';
 
 
 const web3 = new Web3(Web3.givenProvider);
@@ -711,24 +714,8 @@ function App() {
   const TourFr = () => {
     return(
       <div className="tourmain">
-        {/* <nav class="navbar">
-          <a class="brand" href="#">ZZ</a>
-          <ul>
-            <li>
-              <a href="#">Blog</a>
-            </li>
-            <li>
-              <a href="https://zzimm.com/fr/aboutme">À propos</a>
-            </li>
-            <li>
-              <a href="https://zzimm.com">EventWager</a>
-            </li>
-            <li>
-              <a href="https://github.com/zachzimm">GitHub</a>
-            </li>
-          </ul>
-        </nav> */}
         <h1 className="tourcardheader">Un tour en Provence</h1>
+        <h2 className="tourcardsubheader">Caen</h2>
         <div className="tourframe">
           <div classname="vtourimgframe">
             <img 
@@ -738,12 +725,11 @@ function App() {
             />
             <div className="htourimgframe">
               <img 
-                className="tourimg"
+                className="tourimglong"
                 src={caenmusee}
                 alt="Musee de Provence"
               />
               <img
-                width="30%" 
                 className="tourimgshort"
                 src={caenchateau}
                 alt="Chateau de Caen"
@@ -751,23 +737,24 @@ function App() {
             </div>
           </div>
           <div className="tourtext">
-              <h3>Quand vous arrivez à Caen, vous irez à l’hôtel Mercure.</h3>
-              <h3>Après, vous faites le transport en commun à Château de Caen voir le Musée de Normandie.</h3>
-              <br/>
-              <h3>Ensuite, on admire les paysages en Jardin Botanique de Caen et l'église de la Ste-Trinité.</h3>
-              <br/>
-              <h3>Pour le déjeuner, vous avez À Contre Seus manger tripes à la mode de Caen! Ensuite, vous acheterez un billet de train pour Rouen.</h3>
+            <h3>Quand vous arrivez à Caen, vous irez à l’hôtel Mercure.</h3>
+            <h3>Après, vous faites le transport en commun à Château de Caen voir le Musée de Normandie.</h3>
+            <br/>
+            <h3>Ensuite, on admire les paysages en Jardin Botanique de Caen et l'église de la Ste-Trinité.</h3>
+            <br/>
+            <h3>Pour le déjeuner, vous avez À Contre Seus manger tripes à la mode de Caen! Ensuite, vous acheterez un billet de train pour Rouen.</h3>
             <br />
           </div>
         </div>
+        <h2 className="tourcardsubheader">Rouen</h2>
         <div className="tourframe">
           <div className="tourtext">
-                <h3>Vous arrivez à Rouen-Rive-Droite. Quand vous le departez, vous irez à la cathédrale Notre-Dame par le réseau.</h3>
-                <h3>Après, vous pouvez visiter le Musée des Beaux-Arts et le Jardin des Plantes. </h3>
-                <br/>
-                <h3>Vous goûtez la cuisine locale à Tandem. Vous mangez le mouton et vous bouvez le cider! Vous dormirez à l'Hôtel de Bourgtheroulde.</h3>
-                <br/>
-                <h3>Ensuite, vous achetez un billet de train pour le Havre. </h3>
+              <h3>Vous arrivez à Rouen-Rive-Droite. Quand vous le departez, vous irez à la cathédrale Notre-Dame par le réseau.</h3>
+              <h3>Après, vous pouvez visiter le Musée des Beaux-Arts et le Jardin des Plantes. </h3>
+              <br/>
+              <h3>Vous goûtez la cuisine locale à Tandem. Vous mangez le mouton et vous bouvez le cider! Vous dormirez à l'Hôtel de Bourgtheroulde.</h3>
+              <br/>
+              <h3>Ensuite, vous achetez un billet de train pour Le Havre. </h3>
               <br />
             </div>
           <div className="vtournimgframe">
@@ -784,12 +771,48 @@ function App() {
               />
             </div>
             <img 
-                // className="tourimglong"
+                // className="tourimg"
                 src={rouenjardin}
-                alt="Rouen"
+                alt="Rouen Jardin"
               />
           </div>
         </div>
+        <h2 className="tourcardsubheader">Le Havre</h2>
+        <div className="tourframe">
+          <div classname="vtourimgframe">
+            <img 
+              className="tourimg"
+              src={lehavreskyline}
+              alt="Le Havre"
+            />
+            <div className="htourimgframe">
+              <img 
+                className="tourimglonglehavre"
+                src={lehavremarina}
+                alt="Le Havre Marina"
+              />
+              <img
+                className="tourimgshortlehavre"
+                src={lehavremuma}
+                alt="Le Havre Musée d’art Moderne"
+              />
+            </div>
+          </div>
+          <div className="tourtext">
+            <h3>Bienvenue à Le Havre! Les locales le disent la première ville moderne en France.</h3>
+            <br/>
+            <h3>Vous avez mangé beaucoup de cafés! On admire la ville parce que l’est un site UNESCO.</h3>
+            <br/>
+            <h3> Vous visitez la marina pittoresque et André Masacx musée d’art moderne.</h3>
+            <br/>
+            <h3>Ensuite, vous dormirez à l'hôtel local.</h3>
+            <br/>
+            <h3>Vous parlez de leurs parents et vous leur écrivez une carte postale.</h3>
+            <br />
+          </div>
+        </div>
+        <h2 className="tourcardsubheader">Combien d’argent? 1000€ pour les vacances!</h2>
+        <br/>
       </div>
     )
     // Bigger text, wider images, maybe I'll download and crop them
