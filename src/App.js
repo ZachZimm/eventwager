@@ -18,6 +18,7 @@ import rouenjardin from './images/rouen-jardin.png';
 import lehavreskyline from './images/lehavre-skyline.png';
 import lehavremuma from './images/lehavre-muma2.png';
 import lehavremarina from './images/lehavre-marina.png';
+import sean from './images/sean.jpg'
 
 
 const web3 = new Web3(Web3.givenProvider);
@@ -820,7 +821,7 @@ function App() {
   const Sean = () => {
     return(
             <img 
-              src={sean.jpg}
+              src={sean}
               alt="Sean the Swan"
             />
     )
