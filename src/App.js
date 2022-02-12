@@ -20,6 +20,7 @@ import lehavremuma from './images/lehavre-muma2.png';
 import lehavremarina from './images/lehavre-marina.png';
 import sean from './images/sean.jpg'
 import metadata from './test_metadata.json'
+import bayc from './bayc.json'
 
 
 const web3 = new Web3(Web3.givenProvider);
@@ -831,7 +832,8 @@ function App() {
     )
   }
 
-  var metastring = JSON.stringify(metadata)
+  // var metastring = JSON.stringify(metadata)
+  var metastring = JSON.stringify(bayc)
 
   const Meta = () => {
     return(
