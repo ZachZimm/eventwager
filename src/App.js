@@ -837,7 +837,7 @@ function App() {
 
   const Meta = () => {
     return(
-            <pre>{metastring}</pre>
+            metastring
     )
   }
 
