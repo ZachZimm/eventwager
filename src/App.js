@@ -824,6 +824,7 @@ function App() {
               alt="Sean the Swan"
             />
     )
+  }
 
   return (
     <Router>
