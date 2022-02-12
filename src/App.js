@@ -832,8 +832,8 @@ function App() {
     )
   }
 
-  // var metastring = JSON.stringify(metadata)
-  var metastring = JSON.stringify(bayc)
+  var metastring = JSON.stringify(metadata)
+  // var metastring = JSON.stringify(bayc)
 
   const Meta = () => {
     return(
@@ -866,9 +866,6 @@ function App() {
         </Route>
         <Route exact path="/sean.jpg">
           <Sean />
-        </Route>
-        <Route exact path="/meta/4">
-          <Meta />
         </Route>
         <Route path="/meta/">
           <Meta />
