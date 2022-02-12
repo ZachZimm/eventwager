@@ -832,12 +832,11 @@ function App() {
     )
   }
 
+  var metastring = JSON.stringify(metadata)
+
   const Meta = () => {
     return(
-            <div>
-              <p>extra text</p>
-              <p>metadata: metadata</p>
-            </div>
+            <p>{metastring}</p>
     )
   }
 
