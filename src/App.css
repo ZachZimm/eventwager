@@ -20,6 +20,10 @@
   flex-direction: row;
   width: 100%;
 }
+.fullimg{
+  width: 100%;
+  height: 100%;
+}
 .tourimg {
   width: 100%;
   height: 50%;
