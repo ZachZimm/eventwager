@@ -832,7 +832,7 @@ function App() {
   const Meta = () => {
     return(
             <div>
-              {metadata}
+              <p>{metadata}</p>
             </div>
     )
   }
