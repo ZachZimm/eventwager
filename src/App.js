@@ -822,13 +822,12 @@ function App() {
 
   const Sean = () => {
     return(
-          <div>
             <img
-              className="fullimg" 
               src={sean}
               alt="Sean the Swan"
+              width="100%"
+              height="100%"
             />
-          </div>
     )
   }
 
@@ -836,7 +835,7 @@ function App() {
 
   const Meta = () => {
     return(
-            <p>{metastring}</p>
+            metastring
     )
   }
 
