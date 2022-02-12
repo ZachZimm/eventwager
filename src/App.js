@@ -836,7 +836,7 @@ function App() {
     return(
             <div className="main">
               <p>extra text</p>
-              <p>metadata: {metadata}</p>
+              <p>metadata: metadata</p>
             </div>
     )
   }
