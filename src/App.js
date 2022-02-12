@@ -19,6 +19,7 @@ import lehavreskyline from './images/lehavre-skyline.png';
 import lehavremuma from './images/lehavre-muma2.png';
 import lehavremarina from './images/lehavre-marina.png';
 import sean from './images/sean.jpg'
+import metadata from './test_metadata.json'
 
 
 const web3 = new Web3(Web3.givenProvider);
@@ -818,12 +819,21 @@ function App() {
     )
     // Bigger text, wider images, maybe I'll download and crop them
   }
+
   const Sean = () => {
     return(
             <img 
               src={sean}
               alt="Sean the Swan"
             />
+    )
+  }
+
+  const Meta = () => {
+    return(
+            <div>
+              {metadata}
+            </div>
     )
   }
 
@@ -850,6 +860,9 @@ function App() {
         </Route>
         <Route exact path="/sean.jpg">
           <Sean />
+        </Route>
+        <Route exact path="/meta.json">
+          <Meta />
         </Route>
       </Switch>
     </Router>
