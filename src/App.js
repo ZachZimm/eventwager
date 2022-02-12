@@ -822,17 +822,19 @@ function App() {
 
   const Sean = () => {
     return(
+          <div>
             <img 
               src={sean}
               alt="Sean the Swan"
             />
+          </div>
     )
   }
 
   const Meta = () => {
     return(
             <div>
-              <p>{metadata}</p>
+              <p>metadata: {metadata}</p>
             </div>
     )
   }
