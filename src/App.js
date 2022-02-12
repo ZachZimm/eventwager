@@ -835,7 +835,8 @@ function App() {
   const Meta = () => {
     return(
           <body>
-            <div>
+            <div className="main">
+              <p>extra text</p>
               <p>metadata: {metadata}</p>
             </div>
           </body>
