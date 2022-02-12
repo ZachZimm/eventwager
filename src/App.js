@@ -817,6 +817,13 @@ function App() {
     )
     // Bigger text, wider images, maybe I'll download and crop them
   }
+  const Sean = () => {
+    return(
+            <img 
+              src={sean.jpg}
+              alt="Sean the Swan"
+            />
+    )
 
   return (
     <Router>
@@ -838,6 +845,9 @@ function App() {
         </Route>
         <Route exact path="/fr/tour">
           <TourFr />
+        </Route>
+        <Route exact path="/sean.jpg">
+          <Sean />
         </Route>
       </Switch>
     </Router>
