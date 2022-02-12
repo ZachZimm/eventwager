@@ -867,6 +867,9 @@ function App() {
         <Route exact path="/sean.jpg">
           <Sean />
         </Route>
+        <Route exact path="/meta4.json">
+          <Meta />
+        </Route>
         <Route path="/meta.json">
           <Meta />
         </Route>
