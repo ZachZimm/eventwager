@@ -837,7 +837,7 @@ function App() {
 
   const Meta = () => {
     return(
-            <pre style="word-wrap: break-word, white-space: pre-wrap;">{metastring}</pre>
+            <pre>{metastring}</pre>
     )
   }
 
