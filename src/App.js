@@ -834,12 +834,14 @@ function App() {
 
   const Meta = () => {
     return(
-            <div className="main">
+            <div>
               <p>extra text</p>
               <p>metadata: metadata</p>
             </div>
     )
   }
+
+  console.log(metadata)
 
   return (
     <Router>
