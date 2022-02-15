@@ -20,7 +20,6 @@ import lehavremuma from './images/lehavre-muma2.png';
 import lehavremarina from './images/lehavre-marina.png';
 import sean from './images/sean.jpg'
 import metadata from './test_metadata.json'
-import wk from './brave-rewards-verification.txt'
 import bayc from './bayc.json'
 
 
@@ -842,12 +841,6 @@ function App() {
     )
   }
 
-  const WellKnown = () => {
-    return(
-            wk
-    )
-  }
-
   console.log(metadata)
 
   return (
@@ -873,9 +866,6 @@ function App() {
         </Route>
         <Route exact path="/sean.jpg">
           <Sean />
-        </Route>
-        <Route exact path=".well-known">
-          <WellKnown />
         </Route>
         <Route exact path="/meta/4">
           <Meta />

@@ -1,4 +1,0 @@
-This is a Brave Rewards publisher verification file.
-
-Domain: zzimm.com
-Token: a78bbb400147c52b932422b1dd47e3d74c2d3af1f02dd6f9b04b60e45b622876
