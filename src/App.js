@@ -842,7 +842,7 @@ function App() {
     )
   }
 
-  const Meta = () => {
+  const WellKnown = () => {
     return(
             wk
     )
@@ -875,7 +875,7 @@ function App() {
           <Sean />
         </Route>
         <Route exact path=".well-known">
-          <Well-Known />
+          <WellKnown />
         </Route>
         <Route exact path="/meta/4">
           <Meta />
